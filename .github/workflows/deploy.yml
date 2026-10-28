@@ -23,8 +23,9 @@ jobs:
       - name: Build with Astro
         uses: withastro/action@v3
         with:
-          # Astro 7 requires Node >= 22; keep CI in step with .nvmrc.
-          node-version: 22
+          # Astro 7.4 requires Node >= 22.23.4 exactly; "22" resolves to an
+          # older patch on the runner, so pin the full version to match local.
+          node-version: 22.23.4
         # path defaults to the repo root; package manager auto-detected.
 
   deploy:
