@@ -1,0 +1,37 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Set true on pages whose hero sits flush to the top (e.g. the collage pages). */
+  bare?: boolean;
+}
+
+const {
+  title,
+  description = 'Emerson Ng: music, sport, projects, work and the moments in between.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+    />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <slot />
+  </body>
+</html>

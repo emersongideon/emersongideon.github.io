@@ -1,0 +1,78 @@
+<!doctype html>
+<!-- Design reference: static page. Real content goes where [brackets] are. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gym</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap">
+<style>
+body{margin:0;background:#EEECE7}
+a{color:#4F6D8A}a:hover{color:#3B5670}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.035;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+</style>
+</head>
+<body>
+<div style="background: #EEECE7; color: #2B2A27; font-family: Archivo, 'Helvetica Neue', Arial, sans-serif; min-height: 100vh">
+  <div class="grain" aria-hidden="true"></div>
+  <header style="max-width: 1280px; margin: 0 auto; padding: 24px 32px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+    <nav aria-label="Breadcrumb" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; display: flex; gap: 10px; align-items: center"><a href="../" style="color: #2B2A27; text-decoration: none; font-weight: 600; padding: 12px 0">Emerson Ng</a><span style="color: #6B6861">/</span><span>Gym</span></nav>
+    <button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: 2px solid #2B2A27; background: transparent; color: #2B2A27; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Copy link</button>
+  </header>
+
+  <section id="top" style="max-width: 1280px; margin: 0 auto; padding: 48px 32px 56px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; justify-content: space-between">
+    <div>
+      <h1 style="margin: 0; font-size: 168px; line-height: 0.84; font-family: Newsreader, Georgia, serif; font-weight: 400; letter-spacing: -0.035em">Gym<span style="color: #4F6D8A">.</span></h1>
+      <p style="margin: 24px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 28px; color: #4A4842">Lift heavy, eat, repeat. Occasionally stretch.</p>
+    </div>
+    <aside aria-label="Fun fact" style="position: relative; max-width: 360px; background: #E0DDE8; border-radius: 24px; padding: 28px 28px 28px 28px; transform: rotate(2deg)">
+      <span style="position: absolute; top: -16px; left: 24px; padding: 6px 14px; border-radius: 999px; background: #2B2A27; color: #F8F7F4; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.08em">FUN FACT</span>
+      <p style="margin: 8px 0 0; font-size: 24px; font-weight: 900; line-height: 1.15; letter-spacing: -0.01em">I'm a certified personal trainer.</p>
+      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #3C3A35">NCSF · [YYYY]. So yes, I'll notice your knees caving in.</p>
+    </aside>
+  </section>
+
+  <section aria-labelledby="pr-h" style="max-width: 1280px; margin: 0 auto; padding: 0 32px 72px">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 24px">
+      <h2 id="pr-h" style="margin: 0; font-size: 56px; font-family: Newsreader, Georgia, serif; font-weight: 400; letter-spacing: -0.02em">Personal records</h2>
+      <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6B6861">last updated [DATE]</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px">
+      <article style="background: #F8F7F4; border: 1px solid #DAD6CE; border-radius: 24px; padding: 28px"><p style="margin: 0; font-size: 18px; font-weight: 700">Squat</p><p style="margin: 16px 0 0; font-size: 72px; font-weight: 900; letter-spacing: -0.04em; line-height: 1">[N]<span style="font-size: 24px; letter-spacing: 0"> kg</span></p><p style="margin: 10px 0 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6B6861">[DD MMM YYYY]</p></article>
+      <article style="background: #F8F7F4; border: 1px solid #DAD6CE; border-radius: 24px; padding: 28px"><p style="margin: 0; font-size: 18px; font-weight: 700">Bench</p><p style="margin: 16px 0 0; font-size: 72px; font-weight: 900; letter-spacing: -0.04em; line-height: 1">[N]<span style="font-size: 24px; letter-spacing: 0"> kg</span></p><p style="margin: 10px 0 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6B6861">[DD MMM YYYY]</p></article>
+      <article style="background: #F8F7F4; border: 1px solid #DAD6CE; border-radius: 24px; padding: 28px"><p style="margin: 0; font-size: 18px; font-weight: 700">Deadlift</p><p style="margin: 16px 0 0; font-size: 72px; font-weight: 900; letter-spacing: -0.04em; line-height: 1">[N]<span style="font-size: 24px; letter-spacing: 0"> kg</span></p><p style="margin: 10px 0 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6B6861">[DD MMM YYYY]</p></article>
+      <article style="background: #2B2A27; color: #F8F7F4; border-radius: 24px; padding: 28px"><p style="margin: 0; font-size: 18px; font-weight: 700">Big-three total</p><p style="margin: 16px 0 0; font-size: 72px; font-weight: 900; letter-spacing: -0.04em; line-height: 1">[N]<span style="font-size: 24px; letter-spacing: 0"> kg</span></p><p style="margin: 10px 0 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B8B3A8">bodyweight [N] kg</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="prog-h" style="max-width: 1280px; margin: 0 auto; padding: 0 32px 72px">
+    <figure style="margin: 0; background: #F8F7F4; border: 1px solid #DAD6CE; border-radius: 28px; padding: 32px">
+      <figcaption id="prog-h" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-bottom: 24px"><span style="font-size: 24px; font-weight: 900">How the numbers moved</span><span style="display: flex; gap: 16px; font-size: 14px"><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #4F6D8A"></span>Squat</span><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #6E5A9A"></span>Bench</span><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #B4643F"></span>Deadlift</span></span></figcaption>
+      <div style="overflow-x: auto">
+        <svg width="1150" height="240" viewBox="0 0 1150 240" role="img" aria-label="Sample progress lines, to be replaced with your real lift history" style="display: block; max-width: 100%; height: auto">
+          <g stroke="#DAD6CE"><line x1="0" y1="40" x2="1150" y2="40"></line><line x1="0" y1="120" x2="1150" y2="120"></line><line x1="0" y1="200" x2="1150" y2="200"></line></g>
+          <polyline points="0,190 230,170 460,150 690,120 920,100 1150,80" fill="none" stroke="#4F6D8A" stroke-width="3"></polyline>
+          <polyline points="0,210 230,200 460,185 690,175 920,160 1150,150" fill="none" stroke="#6E5A9A" stroke-width="3" stroke-dasharray="8 6"></polyline>
+          <polyline points="0,160 230,140 460,110 690,90 920,60 1150,40" fill="none" stroke="#B4643F" stroke-width="3" stroke-dasharray="2 6"></polyline>
+        </svg>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6B6861"><span>[YYYY]</span><span>[YYYY]</span><span>[YYYY]</span><span>now</span></div>
+    </figure>
+  </section>
+
+  <section aria-labelledby="split-h" style="max-width: 1280px; margin: 0 auto; padding: 0 32px 120px">
+    <h2 id="split-h" style="margin: 0 0 24px; font-size: 56px; font-family: Newsreader, Georgia, serif; font-weight: 400; letter-spacing: -0.02em">My week</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px">
+      <div style="background: #DCE2E8; border-radius: 18px; padding: 20px; min-height: 120px"><p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px">MON</p><p style="margin: 10px 0 0; font-size: 18px; font-weight: 700">[Push]</p></div>
+      <div style="background: #E9DFD6; border-radius: 18px; padding: 20px; min-height: 120px"><p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px">TUE</p><p style="margin: 10px 0 0; font-size: 18px; font-weight: 700">[Pull]</p></div>
+      <div style="background: #DCE3D9; border-radius: 18px; padding: 20px; min-height: 120px"><p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px">WED</p><p style="margin: 10px 0 0; font-size: 18px; font-weight: 700">[Legs]</p></div>
+      <div style="background: #F8F7F4; border: 1px solid #DAD6CE; border-radius: 18px; padding: 20px; min-height: 120px"><p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px">THU</p><p style="margin: 10px 0 0; font-size: 18px; font-weight: 700">[Football]</p></div>
+      <div style="background: #DCE2E8; border-radius: 18px; padding: 20px; min-height: 120px"><p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px">FRI</p><p style="margin: 10px 0 0; font-size: 18px; font-weight: 700">[Upper]</p></div>
+      <div style="background: #DCE3D9; border-radius: 18px; padding: 20px; min-height: 120px"><p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px">SAT</p><p style="margin: 10px 0 0; font-size: 18px; font-weight: 700">[Lower]</p></div>
+      <div style="background: #F8F7F4; border: 1px solid #DAD6CE; border-radius: 18px; padding: 20px; min-height: 120px"><p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px">SUN</p><p style="margin: 10px 0 0; font-size: 18px; font-weight: 700">Church &amp; rest</p></div>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

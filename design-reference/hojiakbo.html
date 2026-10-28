@@ -1,0 +1,100 @@
+<!doctype html>
+<!-- Design reference: static page. Real content goes where [brackets] are. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hojiakbo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap">
+<style>
+body{margin:0;background:#EEECE7}
+a{color:#4F6D8A}a:hover{color:#3B5670}
+.ph{background:#DEDAD2;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:#6B6861}
+.sprockets{height:14px;background-image:linear-gradient(90deg,#EEECE7 0 14px,transparent 14px);background-size:30px 14px;background-repeat:repeat-x;border-radius:2px}
+.lift{transition:transform .25s ease}
+.lift:hover{transform:rotate(0deg) translateY(-6px) !important}
+@media (prefers-reduced-motion:reduce){.lift{transition:none}}
+@media (max-width:760px){.hoj-title{font-size:104px !important}.board{grid-auto-rows:44px !important;height:520px !important}}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.035;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+</style>
+</head>
+<body>
+<div style="background: #EEECE7; color: #2B2A27; font-family: Archivo, 'Helvetica Neue', Arial, sans-serif; min-height: 100vh; overflow-x: hidden">
+  <div class="grain" aria-hidden="true"></div>
+  <header style="max-width: 1280px; margin: 0 auto; padding: 24px 32px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+    <nav aria-label="Breadcrumb" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; display: flex; gap: 10px; align-items: center"><a href="../" style="color: #2B2A27; text-decoration: none; font-weight: 600; padding: 12px 0">Emerson Ng</a><span style="color: #6B6861">/</span><span>Hojiakbo</span></nav>
+  </header>
+
+  <section id="top" aria-label="Photos of Grandpa and me" style="position: relative; overflow: hidden; background: #22211E">
+    <div class="board" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: 88px; grid-auto-flow: dense; gap: 4px; padding: 4px; height: 720px; box-sizing: border-box; overflow: hidden">
+      <div class="ph" aria-hidden="true" style="grid-column: span 3; grid-row: span 3; background: #B9B2A5; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 3; background: #8E877C; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 3; grid-row: span 2; background: #6F6A62; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 2; background: #A39C90; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 2; background: #C9C2B5; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 4; grid-row: span 3; background: #5C5850; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 2; background: #9A9386; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 3; grid-row: span 2; background: #7C766C; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 3; background: #B9B2A5; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 3; grid-row: span 3; background: #8E877C; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 2; background: #6F6A62; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 3; grid-row: span 2; background: #A39C90; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 2; background: #C9C2B5; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 4; grid-row: span 2; background: #5C5850; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 2; background: #9A9386; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 3; grid-row: span 2; background: #7C766C; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 3; background: #B9B2A5; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 2; background: #8E877C; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 3; grid-row: span 2; background: #6F6A62; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 1; background: #A39C90; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 1; grid-row: span 1; background: #C9C2B5; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 1; background: #5C5850; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 1; grid-row: span 1; background: #9A9386; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 1; grid-row: span 1; background: #7C766C; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+      <div class="ph" aria-hidden="true" style="grid-column: span 2; grid-row: span 1; background: #B9B2A5; color: rgba(255,255,255,0.7)">[PHOTO]</div>
+    </div>
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,12,14,0.8) 0%, rgba(12,12,14,0.2) 40%, rgba(12,12,14,0) 65%)"></div>
+    <div style="position: absolute; left: 0; right: 0; bottom: 48px">
+      <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px">
+        <h1 class="hoj-title" style="margin: 0; font-size: 168px; line-height: 0.84; font-family: Newsreader, Georgia, serif; font-weight: 400; letter-spacing: -0.035em; color: #F4EEE4">Hojiakbo<span style="color: #4F6D8A">.</span></h1>
+      </div>
+    </div>
+  </section>
+  <section aria-label="The story" style="max-width: 1280px; margin: 0 auto; padding: 88px 32px 72px; display: flex; flex-wrap: wrap; gap: 48px 80px">
+    <div style="flex: 2 1 520px; max-width: 720px; display: flex; flex-direction: column; gap: 22px; font-size: 21px; line-height: 1.65; color: #3C3A35">
+      <p style="margin: 0">[How it started: the first video, whose idea it was, what Grandpa thought of the camera.]</p>
+      <p style="margin: 0">[The moment it blew up, and what it was like being recognised together.]</p>
+      <p style="margin: 0">[What those videos mean to you now.]</p>
+    </div>
+    <dl style="flex: 1 1 220px; margin: 0; display: flex; flex-direction: column; gap: 24px">
+      <div style="border-top: 1px solid #DAD6CE; padding-top: 14px"><dt style="font-size: 14px; color: #6B6861">Subscribers</dt><dd style="margin: 4px 0 0; font-family: Newsreader, Georgia, serif; font-size: 44px">[N]</dd></div>
+      <div style="border-top: 1px solid #DAD6CE; padding-top: 14px"><dt style="font-size: 14px; color: #6B6861">Total views</dt><dd style="margin: 4px 0 0; font-family: Newsreader, Georgia, serif; font-size: 44px">[N]</dd></div>
+      <div style="border-top: 1px solid #DAD6CE; padding-top: 14px"><dt style="font-size: 14px; color: #6B6861">Videos</dt><dd style="margin: 4px 0 0; font-family: Newsreader, Georgia, serif; font-size: 44px">[N]</dd></div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="fav-h" style="max-width: 1280px; margin: 0 auto; padding: 0 32px 88px">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 24px">
+      <h2 id="fav-h" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 48px; letter-spacing: -0.02em">Our favourites</h2>
+      <a href="#top" style="font-weight: 600; padding: 12px 0">Visit the channel →</a>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px 20px">
+      <figure style="margin: 0"><div class="ph" style="aspect-ratio: 16/9; border-radius: 16px">[YouTube embed]</div><figcaption style="margin-top: 10px; font-size: 16px; font-weight: 600">[Video title]</figcaption></figure>
+      <figure style="margin: 0"><div class="ph" style="aspect-ratio: 16/9; border-radius: 16px">[YouTube embed]</div><figcaption style="margin-top: 10px; font-size: 16px; font-weight: 600">[Video title]</figcaption></figure>
+      <figure style="margin: 0"><div class="ph" style="aspect-ratio: 16/9; border-radius: 16px">[YouTube embed]</div><figcaption style="margin-top: 10px; font-size: 16px; font-weight: 600">[Video title]</figcaption></figure>
+      <figure style="margin: 0"><div class="ph" style="aspect-ratio: 16/9; border-radius: 16px">[YouTube embed]</div><figcaption style="margin-top: 10px; font-size: 16px; font-weight: 600">[Video title]</figcaption></figure>
+      <figure style="margin: 0"><div class="ph" style="aspect-ratio: 16/9; border-radius: 16px">[YouTube embed]</div><figcaption style="margin-top: 10px; font-size: 16px; font-weight: 600">[Video title]</figcaption></figure>
+      <figure style="margin: 0"><div class="ph" style="aspect-ratio: 16/9; border-radius: 16px">[YouTube embed]</div><figcaption style="margin-top: 10px; font-size: 16px; font-weight: 600">[Video title]</figcaption></figure>
+    </div>
+  </section>
+
+  <section aria-label="In memory" style="border-top: 1px solid #DAD6CE">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 72px 32px 120px; text-align: center">
+      <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 32px; line-height: 1.3">In memory of Grandpa.</p>
+      <p style="margin: 10px 0 0; font-size: 16px; color: #6B6861">[YYYY] – [YYYY]</p>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

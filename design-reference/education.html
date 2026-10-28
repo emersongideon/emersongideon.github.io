@@ -1,0 +1,61 @@
+<!doctype html>
+<!-- Design reference: static page. Real content goes where [brackets] are. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Education</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap">
+<style>
+body{margin:0;background:#EEECE7}
+a{color:#4F6D8A}a:hover{color:#3B5670}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.035;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+</style>
+</head>
+<body>
+<div style="background: #EEECE7; color: #2B2A27; font-family: Archivo, 'Helvetica Neue', Arial, sans-serif; min-height: 100vh">
+  <div class="grain" aria-hidden="true"></div>
+  <header style="max-width: 1280px; margin: 0 auto; padding: 24px 32px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+    <nav aria-label="Breadcrumb" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; display: flex; gap: 10px; align-items: center"><a href="../" style="color: #2B2A27; text-decoration: none; font-weight: 600; padding: 12px 0">Emerson Ng</a><span style="color: #6B6861">/</span><span>Education</span></nav>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: 2px solid #2B2A27; background: transparent; color: #2B2A27; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Copy link</button>
+      <a href="#top" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: #2B2A27; color: #F8F7F4; text-decoration: none; font-size: 14px; font-weight: 600">Download PDF</a>
+    </div>
+  </header>
+
+  <section id="top" style="max-width: 1280px; margin: 0 auto; padding: 48px 32px 56px">
+    <h1 style="margin: 0; font-size: 152px; line-height: 0.86; font-family: Newsreader, Georgia, serif; font-weight: 400; letter-spacing: -0.035em">Education<span style="color: #4F6D8A">.</span></h1>
+    <p style="margin: 24px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 28px; color: #4A4842">Where I learned things. Some of them I even remember.</p>
+  </section>
+
+  <section aria-label="Schools" style="max-width: 1280px; margin: 0 auto; padding: 0 32px 72px">
+    <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+      <li style="background: #F8F7F4; border: 1px solid #DAD6CE; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6B6861">[YYYY] – [YYYY]</span>
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; letter-spacing: -0.02em">[Secondary school]</h2>
+        <p style="margin: 0; font-size: 16px; color: #4A4842; line-height: 1.5">[CCA, highlight, or the thing you got in trouble for]</p>
+      </li>
+      <li style="background: #F8F7F4; border: 1px solid #DAD6CE; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6B6861">[YYYY] – [YYYY]</span>
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; letter-spacing: -0.02em">[JC / Poly]</h2>
+        <p style="margin: 0; font-size: 16px; color: #4A4842; line-height: 1.5">[Course · highlight]</p>
+      </li>
+      <li style="background: #DCE3D9; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #3C3A35">[YYYY] – [YYYY]</span>
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; letter-spacing: -0.02em">[University] · [Degree]</h2>
+        <p style="margin: 0; font-size: 16px; color: #3C3A35; line-height: 1.5">[Focus, final-year project, honours]</p>
+      </li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="courses-h" style="max-width: 1280px; margin: 0 auto; padding: 0 32px 120px">
+    <h2 id="courses-h" style="margin: 0 0 20px; font-size: 40px; font-family: Newsreader, Georgia, serif; font-weight: 400; letter-spacing: -0.02em">Other courses</h2>
+    <ul style="list-style: none; margin: 0; padding: 0; max-width: 720px">
+      <li style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-top: 1px solid #DAD6CE; font-size: 17px"><span style="font-weight: 700">[Course]</span><span style="color: #6B6861">[Provider · YYYY]</span></li>
+      <li style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-top: 1px solid #DAD6CE; font-size: 17px"><span style="font-weight: 700">[Course]</span><span style="color: #6B6861">[Provider · YYYY]</span></li>
+    </ul>
+  </section>
+</div>
+
+</body>
+</html>
