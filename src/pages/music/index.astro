@@ -1,0 +1,185 @@
+---
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Collage from '../../components/Collage.astro';
+import Photo from '../../components/Photo.astro';
+import LiteYouTube from '../../components/LiteYouTube.astro';
+import FbVideo from '../../components/FbVideo.astro';
+import music from '../../data/music.json';
+
+const collageGlob = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/music/collage/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const photoGlob = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/music/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const collageImages = Object.values(collageGlob).map((m) => ({ src: m.default, alt: 'Music moment' }));
+const photo = (file: string) => (file ? photoGlob[`../../assets/music/${file}`]?.default : undefined);
+---
+
+<Layout title="Music">
+  <PageHeader crumbs={[{ label: 'Emerson Ng', href: '' }, { label: 'Music' }]} />
+
+  <Collage images={collageImages} title="Music" />
+
+  <section class="wrap story" aria-label="How it started">
+    {music.story.map((p) => <p>{p}</p>)}
+  </section>
+
+  <section class="wrap block" aria-labelledby="big-h">
+    <h2 id="big-h">The big nights</h2>
+    <div class="big-grid">
+      <figure class="mv">
+        {music.bigNights.mv.yt ? (
+          <LiteYouTube id={music.bigNights.mv.yt} title={music.bigNights.mv.title} />
+        ) : (
+          <Photo ratio="21/9" label="[MV STILL]" alt="Music video still" />
+        )}
+        <figcaption>
+          <span>
+            <span class="cap-title">{music.bigNights.mv.title}</span><br />
+            <span class="cap-sub">{music.bigNights.mv.subtitle}</span>
+          </span>
+          {music.bigNights.mv.spotify && (
+            <a class="pill-light" href={music.bigNights.mv.spotify} target="_blank" rel="noopener noreferrer">Spotify</a>
+          )}
+        </figcaption>
+      </figure>
+      {music.bigNights.gigs.map((g) => (
+        <figure class="gig">
+          <Photo src={photo(g.photo)} ratio="4/3" alt={g.title} />
+          <figcaption>
+            <span class="cap-title">{g.title}</span><br />
+            <span class="cap-sub">{g.year}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  {music.jams && music.jams.length > 0 && (
+    <section class="wrap block" aria-labelledby="jam-h">
+      <h2 id="jam-h">Jams and gigs</h2>
+      <div class="jam-grid">
+        {music.jams.map((j) => (
+          <figure class="jam">
+            <FbVideo href={j.fb} title={j.title} />
+            <figcaption>{j.title}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="dark" aria-labelledby="mem-h">
+    <div class="wrap">
+      <h2 id="mem-h">Just for memories</h2>
+      <p class="dark-sub">{music.memoriesIntro}</p>
+    </div>
+    <div class="film">
+      <div class="sprockets" aria-hidden="true"></div>
+      <div class="film-row">
+        {music.memories.map((m) => (
+          <figure>
+            <Photo src={photo(m.photo)} ratio="4/3" alt={m.caption} widths={[280, 560]} sizes="280px" />
+            <figcaption>{m.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="sprockets" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="sun-h">
+    <div class="block-head">
+      <h2 id="sun-h">Most Sundays</h2>
+      <span class="count">{music.services.count} services and counting</span>
+    </div>
+    <div class="rail">
+      {music.services.videos.map((v) => (
+        <div class="rail-item">
+          {v.yt ? <LiteYouTube id={v.yt} title={`Service, ${v.date}`} /> : <Photo ratio="16/9" label="▶" alt="" />}
+          <span class="rail-date">{v.date}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap comp" aria-labelledby="comp-h">
+    <div class="badge" aria-hidden="true"><span>{music.competition.placing.split(' ')[0]}</span><span>{music.competition.placing.split(' ')[1]}</span></div>
+    <div class="comp-text">
+      <h2 id="comp-h">{music.competition.title}</h2>
+      <p>{music.competition.detail}</p>
+      {music.competition.yt
+        ? <div class="comp-vid"><LiteYouTube id={music.competition.yt} title="Competition entry" /></div>
+        : <span class="pill-outline">Watch my entry</span>}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .story { padding-top: 88px; padding-bottom: 104px; max-width: 760px; display: flex; flex-direction: column; gap: 22px; }
+  .story p { margin: 0; font-size: 21px; line-height: 1.65; color: var(--ink-2); }
+  .story p:last-child { color: var(--muted); }
+
+  .block { padding-bottom: 96px; }
+  .block h2, .comp h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.02em; }
+  .block > h2 { margin: 0 0 32px; font-size: 56px; }
+  .block-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 24px; }
+  .block-head h2 { margin: 0; font-size: 56px; }
+  .count { font-family: var(--serif); font-size: 22px; color: var(--ink-2); }
+
+  .big-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+  figure { margin: 0; position: relative; border-radius: 18px; overflow: hidden; background: var(--surface); box-shadow: 0 10px 30px rgba(30, 28, 24, .12); }
+  .mv { grid-column: 1 / -1; }
+  figure :global(.photo-img), figure :global(.photo-ph) { border-radius: 0; }
+  figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; margin: 0;
+    padding: 56px 20px 16px;
+    background: linear-gradient(to top, rgba(12, 12, 14, .78), rgba(12, 12, 14, 0));
+    color: var(--dark-ink);
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px;
+  }
+  .cap-title { font-size: 22px; font-weight: 900; letter-spacing: -.02em; }
+  .mv .cap-title { font-size: 26px; }
+  .cap-sub { font-family: var(--serif); font-size: 17px; color: rgba(255, 255, 255, .82); }
+  .mv .lyt { border-radius: 0; }
+
+  .pill-light { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--dark-ink); color: var(--dark); text-decoration: none; font-weight: 600; font-size: 15px; }
+
+  .jam-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .jam { position: static; background: none; box-shadow: none; border-radius: 0; overflow: visible; }
+  .jam :global(.fbv) { border-radius: 18px; }
+  .jam figcaption { position: static; padding: 10px 0 0; background: none; color: var(--ink); display: block; font-size: 16px; font-weight: 600; }
+
+  .dark { background: var(--dark); color: var(--dark-ink); padding: 72px 0 80px; }
+  .dark h2 { margin: 0 0 8px; font-family: var(--serif); font-weight: 400; font-size: 56px; letter-spacing: -.02em; }
+  .dark-sub { margin: 0 0 36px; font-family: var(--serif); font-size: 22px; color: #B8B3A8; }
+  .film { overflow-x: auto; padding: 0 32px; }
+  .film-row { display: flex; gap: 12px; padding: 14px 0; }
+  .film-row figure { flex: none; width: 280px; box-shadow: none; }
+  .film-row figcaption { font-family: var(--mono); font-size: 12px; padding: 40px 14px 12px; }
+  .sprockets { height: 14px; background-image: linear-gradient(90deg, var(--dark) 0 14px, transparent 14px); background-size: 30px 14px; background-repeat: repeat-x; border-radius: 2px; }
+
+  .rail { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; }
+  .rail-item { flex: none; width: 240px; }
+  .rail-item :global(.lyt), .rail-item :global(.photo-ph) { border-radius: 12px; }
+  .rail-date { display: block; margin-top: 8px; font-family: var(--mono); font-size: 12px; }
+
+  .comp { padding-bottom: 120px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center; justify-content: center; }
+  .badge { flex: none; width: 200px; height: 200px; border-radius: 50%; background: var(--accent); color: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-10deg); }
+  .badge span { font-size: 64px; font-weight: 900; letter-spacing: -.04em; line-height: 1; }
+  .comp-text { flex: 0 1 520px; }
+  .comp-text h2 { margin: 0; font-size: 40px; font-weight: 900; font-family: var(--sans); letter-spacing: -.02em; line-height: 1.05; }
+  .comp-text p { margin: 10px 0 20px; font-family: var(--serif); font-size: 22px; color: var(--ink-2); }
+  .comp-vid { max-width: 480px; }
+  .pill-outline { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 2px solid var(--ink); color: var(--ink); font-weight: 600; font-size: 15px; }
+
+  @media (max-width: 760px) {
+    .story { padding-top: 56px; padding-bottom: 64px; }
+    .story p { font-size: 18px; }
+    .block > h2, .block-head h2, .dark h2 { font-size: 40px; }
+  }
+</style>

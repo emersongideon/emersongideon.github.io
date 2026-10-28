@@ -1,0 +1,105 @@
+---
+import { url } from '../lib/url';
+import SocialMenu from './SocialMenu.astro';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  /** Breadcrumb trail, home first. Last item is the current page (no href). */
+  crumbs: Crumb[];
+  /** Show the "Copy link" button (default true). */
+  copyLink?: boolean;
+}
+const { crumbs, copyLink = true } = Astro.props;
+---
+
+<header class="page-head-bar" id="page-head-bar">
+  <div class="page-head wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      {
+        crumbs.map((c, i) => (
+          <>
+            {c.href !== undefined ? <a href={url(c.href)}>{c.label}</a> : <span>{c.label}</span>}
+            {i < crumbs.length - 1 && <span class="sep" aria-hidden="true">/</span>}
+          </>
+        ))
+      }
+    </nav>
+    <div class="head-actions">
+      <slot name="actions" />
+      <SocialMenu />
+      {copyLink && <button type="button" class="btn-outline" id="copy-link">Copy link</button>}
+    </div>
+  </div>
+</header>
+
+<style>
+  .page-head-bar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--bg);
+    transition: box-shadow .2s ease, border-color .2s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .page-head-bar.scrolled {
+    border-bottom-color: var(--line);
+    box-shadow: 0 2px 12px rgba(30, 28, 24, .05);
+  }
+  .page-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .crumbs {
+    font-family: var(--mono);
+    font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .crumbs a { color: var(--ink); text-decoration: none; font-weight: 600; padding: 12px 0; }
+  .crumbs a:hover { color: var(--accent); }
+  .crumbs .sep { color: var(--muted); }
+  .head-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn-outline {
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 2px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--surface); }
+</style>
+
+<script>
+  // Subtle separator once the page is scrolled under the sticky header.
+  const bar = document.getElementById('page-head-bar');
+  const onScroll = () => bar?.classList.toggle('scrolled', window.scrollY > 4);
+  onScroll();
+  addEventListener('scroll', onScroll, { passive: true });
+
+  const btn = document.getElementById('copy-link');
+  btn?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(location.href);
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(() => { btn.textContent = original; }, 1500);
+    } catch {
+      /* clipboard blocked (e.g. insecure context); ignore */
+    }
+  });
+</script>

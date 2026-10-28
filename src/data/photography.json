@@ -1,0 +1,16 @@
+{
+  "_note": "Collage hero photos: src/assets/photography/collage/. Gallery photos: src/assets/photography/ referenced by filename. No design existed for this page; built on the Music pattern for review.",
+  "tagline": "Ten thousand photos, maybe forty keepers.",
+  "story": [
+    "[How you got into photography, the first camera, the shot that hooked you.]",
+    "[What you shoot now, and what you are chasing when you shoot it.]"
+  ],
+  "kit": [
+    { "label": "Camera", "value": "[Body]" },
+    { "label": "Lens", "value": "[Lens]" },
+    { "label": "I shoot", "value": "[What you shoot]" }
+  ],
+  "galleries": [
+    { "title": "Selected work", "photos": ["", "", "", "", "", ""] }
+  ]
+}

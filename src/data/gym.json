@@ -1,0 +1,22 @@
+{
+  "tagline": "Lift heavy, eat, repeat. Occasionally stretch.",
+  "funFact": {
+    "title": "I'm a certified personal trainer.",
+    "detail": "NCSF, [YYYY]. So yes, I'll notice your knees caving in."
+  },
+  "prs": [
+    { "lift": "Squat", "kg": "[N]", "date": "[DD MMM YYYY]" },
+    { "lift": "Bench", "kg": "[N]", "date": "[DD MMM YYYY]" },
+    { "lift": "Deadlift", "kg": "[N]", "date": "[DD MMM YYYY]" },
+    { "lift": "Big-three total", "kg": "[N]", "bodyweight": "[N]", "feature": true }
+  ],
+  "week": [
+    { "day": "MON", "label": "[Push]", "tint": "#DCE2E8" },
+    { "day": "TUE", "label": "[Pull]", "tint": "#E9DFD6" },
+    { "day": "WED", "label": "[Legs]", "tint": "#DCE3D9" },
+    { "day": "THU", "label": "[Football]", "tint": "#F8F7F4" },
+    { "day": "FRI", "label": "[Upper]", "tint": "#DCE2E8" },
+    { "day": "SAT", "label": "[Lower]", "tint": "#DCE3D9" },
+    { "day": "SUN", "label": "Church and rest", "tint": "#F8F7F4" }
+  ]
+}

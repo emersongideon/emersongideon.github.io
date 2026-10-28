@@ -1,0 +1,51 @@
+---
+interface Props {
+  /** YouTube video id (not the full URL). */
+  id: string;
+  /** Accessible title, shown to screen readers and used as the iframe title. */
+  title: string;
+  /** Optional start time in seconds (e.g. "me at 0:12"). */
+  start?: number;
+}
+const { id, title, start } = Astro.props;
+const params = new URLSearchParams({ rel: '0' });
+if (start) params.set('start', String(start));
+---
+
+<!-- Click-to-load facade: ships a thumbnail, swaps in the real player only on
+     click. Keeps pages with many videos fast. Uses youtube-nocookie + rel=0. -->
+<div class="lyt" data-id={id} data-params={params.toString()} data-title={title}>
+  <button type="button" class="lyt-btn" aria-label={`Play video: ${title}`}>
+    <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" width="480" height="360" />
+    <span class="lyt-play" aria-hidden="true">
+      <svg viewBox="0 0 68 48"><path class="lyt-shape" d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+    </span>
+  </button>
+</div>
+
+<style>
+  .lyt { position: relative; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #000; }
+  .lyt-btn { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; display: block; }
+  .lyt img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lyt-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 68px; height: 48px; opacity: .92; transition: opacity .2s ease, transform .2s ease; }
+  .lyt-play svg { width: 100%; height: 100%; }
+  .lyt-play .lyt-shape { opacity: .85; }
+  .lyt-btn:hover .lyt-play, .lyt-btn:focus-visible .lyt-play { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+  .lyt-btn:hover .lyt-shape { opacity: 1; }
+  .lyt :global(iframe) { width: 100%; height: 100%; border: 0; display: block; }
+  @media (prefers-reduced-motion: reduce) { .lyt-play { transition: none; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.lyt').forEach((el) => {
+    const btn = el.querySelector('.lyt-btn');
+    btn?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${el.dataset.id}?autoplay=1&${el.dataset.params}`;
+      iframe.title = el.dataset.title ?? 'YouTube video';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      el.replaceChildren(iframe);
+    });
+  });
+</script>

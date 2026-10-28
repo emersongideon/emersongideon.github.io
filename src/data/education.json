@@ -1,0 +1,12 @@
+{
+  "tagline": "Where I learned things. Some of them I even remember.",
+  "schools": [
+    { "period": "[YYYY] – [YYYY]", "name": "[Secondary school]", "note": "[CCA, highlight, or the thing you got in trouble for]" },
+    { "period": "[YYYY] – [YYYY]", "name": "[JC / Poly]", "note": "[Course, highlight]" },
+    { "period": "[YYYY] – [YYYY]", "name": "[University], [Degree]", "note": "[Focus, final-year project, honours]", "highlight": true }
+  ],
+  "courses": [
+    { "name": "[Course]", "provider": "[Provider, YYYY]" },
+    { "name": "[Course]", "provider": "[Provider, YYYY]" }
+  ]
+}

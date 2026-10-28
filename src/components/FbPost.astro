@@ -1,0 +1,43 @@
+---
+interface Props {
+  /** Facebook post URL (a canonical permalink resolves most reliably). */
+  href: string;
+  title?: string;
+  /** Rendered height in px; post embeds have no fixed aspect ratio. */
+  height?: number;
+}
+const { href, title = 'Facebook post', height = 640 } = Astro.props;
+const src = `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(href)}&show_text=true&width=500`;
+---
+
+<!-- Click-to-load Facebook post embed. -->
+<div class="fbp" data-src={src} data-title={title} style={`--h:${height}px`}>
+  <button type="button" class="fbp-btn" aria-label={`Load post: ${title}`}>
+    <span class="fbp-ic" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.4 18.6 0 12 0S0 5.4 0 12.07c0 6 4.39 10.97 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.52c-1.49 0-1.96.93-1.96 1.87v2.25h3.33l-.53 3.47h-2.8v8.38C19.61 23.04 24 18.07 24 12.07z" /></svg>
+    </span>
+    <span class="fbp-cap">Load Facebook post</span>
+  </button>
+</div>
+
+<style>
+  .fbp { position: relative; width: 500px; max-width: 100%; height: var(--h); border-radius: 14px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); }
+  .fbp-btn { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: none; color: var(--accent); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+  .fbp-ic svg { width: 36px; height: 36px; }
+  .fbp-cap { font-weight: 600; }
+  .fbp :global(iframe) { width: 100%; height: 100%; border: 0; display: block; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.fbp').forEach((el) => {
+    el.querySelector('.fbp-btn')?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = el.dataset.src!;
+      iframe.title = el.dataset.title ?? 'Facebook post';
+      iframe.scrolling = 'no';
+      iframe.allow = 'clipboard-write; encrypted-media; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      el.replaceChildren(iframe);
+    });
+  });
+</script>

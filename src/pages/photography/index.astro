@@ -1,0 +1,72 @@
+---
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Collage from '../../components/Collage.astro';
+import Photo from '../../components/Photo.astro';
+import photography from '../../data/photography.json';
+
+const collageGlob = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/photography/collage/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const photoGlob = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/photography/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const collageImages = Object.values(collageGlob).map((m) => ({ src: m.default, alt: 'Photograph' }));
+const photo = (file: string) => (file ? photoGlob[`../../assets/photography/${file}`]?.default : undefined);
+---
+
+<Layout title="Photography">
+  <PageHeader crumbs={[{ label: 'Emerson Ng', href: '' }, { label: 'Photography' }]} />
+
+  <Collage images={collageImages} title="Photography" />
+
+  <section class="wrap intro">
+    <div class="story">
+      {photography.story.map((p) => <p>{p}</p>)}
+    </div>
+    <dl class="kit">
+      {
+        photography.kit.map((k) => (
+          <div>
+            <dt>{k.label}</dt>
+            <dd>{k.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  {
+    photography.galleries.map((g) => (
+      <section class="wrap block" aria-label={g.title}>
+        <h2>{g.title}</h2>
+        <div class="gal">
+          {g.photos.map((f) => (
+            <div class="cell">
+              <Photo src={photo(f)} ratio="1/1" alt={g.title} widths={[300, 600]} sizes="(max-width:760px) 50vw, 33vw" />
+            </div>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+</Layout>
+
+<style>
+  .intro { display: flex; flex-wrap: wrap; gap: 48px 80px; padding-top: 88px; padding-bottom: 72px; }
+  .story { flex: 2 1 520px; max-width: 720px; display: flex; flex-direction: column; gap: 22px; }
+  .story p { margin: 0; font-size: 21px; line-height: 1.65; color: var(--ink-2); }
+  .kit { flex: 1 1 220px; margin: 0; display: flex; flex-direction: column; gap: 24px; }
+  .kit div { border-top: 1px solid var(--line); padding-top: 14px; }
+  .kit dt { font-size: 14px; color: var(--muted); }
+  .kit dd { margin: 4px 0 0; font-family: var(--serif); font-size: 32px; }
+
+  .block { padding-bottom: 96px; }
+  .block h2 { margin: 0 0 24px; font-family: var(--serif); font-weight: 400; font-size: 48px; letter-spacing: -.02em; }
+  .gal { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .cell { border-radius: 14px; overflow: hidden; }
+
+  @media (max-width: 760px) { .block h2 { font-size: 36px; } .intro { padding-top: 56px; } }
+</style>

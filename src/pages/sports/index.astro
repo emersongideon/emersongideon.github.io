@@ -1,0 +1,168 @@
+---
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Photo from '../../components/Photo.astro';
+import FbVideo from '../../components/FbVideo.astro';
+import sports from '../../data/sports.json';
+
+const glob = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/sports/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const photo = (file: string) => (file ? glob[`../../assets/sports/${file}`]?.default : undefined);
+const featureImg = photo(sports.feature.image);
+---
+
+<Layout title="Sports">
+  <PageHeader crumbs={[{ label: 'Emerson Ng', href: '' }, { label: 'Sports' }]} />
+
+  <section class="wrap hero">
+    <div class="hero-text">
+      <h1>Sports<span class="dot">.</span></h1>
+      <p>{sports.tagline}</p>
+    </div>
+    <figure class="feature">
+      <div class="mag">
+        <span class="mag-name">{sports.feature.publication}</span>
+        <div class="mag-photo">
+          <Photo src={featureImg} ratio="3/4" alt="Sportsman of the Year feature" widths={[340, 680]} sizes="340px" label="[FEATURE PHOTO]" />
+        </div>
+        <span class="mag-award">{sports.feature.award}</span>
+      </div>
+      <span class="mag-badge" aria-hidden="true">{sports.feature.issue}</span>
+      <figcaption>
+        {sports.feature.caption}
+        <a href={sports.feature.href} target="_blank" rel="noopener noreferrer">Read the feature</a>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="wrap block" aria-labelledby="fb-h">
+    <div class="sport-head">
+      <div>
+        <h2 id="fb-h" class="big">Football</h2>
+        <p class="sub">{sports.football.subtitle}</p>
+      </div>
+      <div class="trophy">
+        <span class="tr-place" aria-hidden="true">{sports.football.trophy.place}</span>
+        <span>
+          <span class="tr-title">{sports.football.trophy.title}</span>
+          <span class="tr-detail">{sports.football.trophy.detail}</span>
+        </span>
+      </div>
+    </div>
+    <div class="grid-4">
+      {
+        sports.football.photos.map((f, i) => (
+          <div class={`cell${i === 0 ? ' big-cell' : ''}`}>
+            <Photo src={photo(f)} ratio={i === 0 ? '1/1' : '1/1'} alt="Football" widths={[300, 600]} sizes="(max-width:760px) 50vw, 25vw" />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="snow" aria-labelledby="sb-h">
+    <div class="wrap">
+      <div class="sport-head">
+        <div>
+          <h2 id="sb-h" class="big">Snowboarding</h2>
+          <p class="sub">{sports.snowboarding.subtitle}</p>
+        </div>
+        <div class="chips">
+          {sports.snowboarding.resorts.map((r) => <span class="chip">{r}</span>)}
+        </div>
+      </div>
+      <div class="grid-4">
+        {
+          sports.snowboarding.photos.map((f, i) => (
+            <div class={`cell${i === 0 ? ' big-cell' : ''}`}>
+              <Photo src={photo(f)} ratio="1/1" alt="Snowboarding" widths={[300, 600]} sizes="(max-width:760px) 50vw, 25vw" />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap block last" aria-labelledby="played-h">
+    <h2 id="played-h" class="section-h">Everything else I've played</h2>
+    <div class="other-grid">
+      {
+        sports.other.map((o) =>
+          'clip' in o && o.clip ? (
+            <figure class="other other-vid">
+              <FbVideo href={o.clip} title={o.sport} />
+              <figcaption class="vid-cap">
+                <span class="o-sport">{o.sport}</span> <span class="o-detail">{o.detail}</span>
+              </figcaption>
+            </figure>
+          ) : (
+            <figure class="other">
+              <Photo src={photo(o.photo ?? '')} ratio="1/1" alt={o.sport} widths={[300, 600]} sizes="(max-width:760px) 50vw, 25vw" />
+              <figcaption>
+                <span class="o-sport">{o.sport}</span><br />
+                <span class="o-detail">{o.detail}</span>
+              </figcaption>
+            </figure>
+          ),
+        )
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero { padding-top: 24px; padding-bottom: 96px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
+  .hero-text { flex: 1 1 440px; }
+  .hero h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(88px, 15vw, 168px); line-height: .84; letter-spacing: -.035em; }
+  .dot { color: var(--accent); }
+  .hero p { margin: 24px 0 0; font-family: var(--serif); font-size: clamp(20px, 3vw, 28px); color: var(--ink-2); }
+
+  .feature { flex: 0 0 340px; margin: 0 auto; position: relative; transform: rotate(4deg); }
+  .mag { background: var(--ink); color: var(--surface); padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; box-shadow: 0 16px 40px rgba(30, 28, 24, .18); }
+  .mag-name { font-family: var(--serif); font-size: 32px; letter-spacing: -.02em; text-transform: uppercase; }
+  .mag-photo { margin: 16px 0; }
+  .mag-photo :global(.photo-img), .mag-photo :global(.photo-ph) { border-radius: 2px; }
+  .mag-award { font-size: 28px; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+  .mag-badge { position: absolute; top: -18px; right: -18px; width: 92px; height: 92px; border-radius: 50%; background: var(--t-made); display: flex; align-items: center; justify-content: center; text-align: center; font-family: var(--mono); font-size: 12px; font-weight: 600; transform: rotate(-12deg); color: var(--ink); }
+  .feature figcaption { margin-top: 18px; font-family: var(--serif); font-size: 18px; color: var(--ink-2); text-align: center; }
+
+  .block { padding-bottom: 104px; }
+  .block.last { padding-bottom: 120px; }
+  .sport-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+  .big { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(56px, 9vw, 88px); letter-spacing: -.03em; line-height: .9; }
+  .sub { margin: 14px 0 0; font-family: var(--serif); font-size: 22px; color: var(--ink-2); }
+  .section-h { margin: 0 0 32px; font-family: var(--serif); font-weight: 400; font-size: 56px; letter-spacing: -.02em; }
+
+  .trophy { display: flex; align-items: center; gap: 16px; background: var(--t-made); border-radius: 999px; padding: 10px 24px 10px 10px; }
+  .tr-place { width: 64px; height: 64px; border-radius: 50%; background: var(--ink); color: var(--t-made); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; flex: none; }
+  .tr-title { display: block; font-size: 18px; font-weight: 900; }
+  .tr-detail { display: block; font-size: 14px; }
+
+  .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .cell { border-radius: 18px; overflow: hidden; }
+  .cell :global(.photo-img), .cell :global(.photo-ph) { height: 100%; }
+  .big-cell { grid-column: span 2; grid-row: span 2; }
+
+  .snow { background: #E2E7E9; padding: 88px 0 96px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { padding: 8px 16px; border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 600; }
+
+  .other-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+  .other { position: relative; margin: 0; border-radius: 18px; overflow: hidden; background: var(--surface); box-shadow: 0 10px 30px rgba(30, 28, 24, .12); }
+  .other figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 56px 20px 16px; background: linear-gradient(to top, rgba(12, 12, 14, .78), rgba(12, 12, 14, 0)); color: var(--dark-ink); }
+  .o-sport { font-size: 22px; font-weight: 900; }
+  .o-detail { font-family: var(--serif); font-size: 16px; color: rgba(255, 255, 255, .82); }
+
+  .other-vid { position: static; background: none; box-shadow: none; border-radius: 0; overflow: visible; }
+  .other-vid :global(.fbv) { border-radius: 18px; }
+  .vid-cap { position: static; padding: 10px 0 0; background: none; color: var(--ink); display: block; }
+  .vid-cap .o-detail { color: var(--muted); }
+
+  @media (max-width: 760px) {
+    .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .big-cell { grid-column: span 2; grid-row: auto; }
+    .section-h { font-size: 40px; }
+  }
+</style>

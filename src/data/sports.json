@@ -1,0 +1,32 @@
+{
+  "_note": "Photos: drop into src/assets/sports/ and reference by filename.",
+  "tagline": "If there's a ball, a board or a scoreboard, I've probably tried it.",
+  "feature": {
+    "award": "Sportsman of the Year",
+    "publication": "[Uni / hall] yearbook",
+    "issue": "[YYYY] issue",
+    "image": "best-sportsman.jpg",
+    "href": "https://www.yumpu.com/en/document/read/63338019/eighters-yearbook/111",
+    "caption": "Made the yearbook."
+  },
+  "football": {
+    "subtitle": "International House Soccer Team, [position]",
+    "trophy": {
+      "place": "1st",
+      "title": "2018 IM League Soccer Tournament",
+      "detail": "First place, International House Soccer Team"
+    },
+    "photos": ["", "", "", ""]
+  },
+  "snowboarding": {
+    "subtitle": "Professionally falling down mountains since [YYYY].",
+    "resorts": ["[Resort, Country]", "[Resort, Country]", "[Resort, Country]"],
+    "photos": ["", "", "", "", "", ""]
+  },
+  "other": [
+    { "sport": "Wushu", "detail": "[team, years]", "clip": "https://www.facebook.com/yuan.xia.14/videos/501275739371/?idorvanity=194461310578703" },
+    { "sport": "[Sport]", "detail": "[team, years]", "photo": "" },
+    { "sport": "[Sport]", "detail": "[team, years]", "photo": "" },
+    { "sport": "[Sport]", "detail": "[team, years]", "photo": "" }
+  ]
+}

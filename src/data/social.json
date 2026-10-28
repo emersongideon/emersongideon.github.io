@@ -1,0 +1,12 @@
+{
+  "channels": [
+    { "label": "Email", "href": "mailto:emerson.gideon.ng@gmail.com" },
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/emersonng/" },
+    { "label": "Instagram", "href": "https://www.instagram.com/emerson.gideon" },
+    { "label": "Facebook", "href": "https://www.facebook.com/emersongideon" },
+    { "label": "Substack", "href": "https://mbappetizer.substack.com/" },
+    { "label": "X", "href": "https://x.com/EmersonGideon" },
+    { "label": "YouTube", "href": "https://www.youtube.com/@emersongideon" },
+    { "label": "GitHub", "href": "https://github.com/emersongideon" }
+  ]
+}

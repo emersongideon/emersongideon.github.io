@@ -26,14 +26,16 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+/* `clip` stops any sideways drag of the page without turning html/body into a
+   scroll container (which would break the home page's sticky stage). */
+html { scroll-padding-top: env(safe-area-inset-top, 0px); overflow-x: clip; }
 body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 a { color: var(--accent); }
 a:hover { color: var(--accent-hover); }

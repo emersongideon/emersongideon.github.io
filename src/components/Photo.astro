@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  /** Resolved image metadata, or undefined to show a placeholder. */
+  src?: ImageMetadata;
+  alt: string;
+  /** CSS aspect-ratio for the frame, e.g. "4/3". */
+  ratio?: string;
+  /** Placeholder label when no image is set. */
+  label?: string;
+  widths?: number[];
+  sizes?: string;
+  class?: string;
+}
+const {
+  src,
+  alt,
+  ratio = '4/3',
+  label = '[PHOTO]',
+  widths = [400, 800, 1200],
+  sizes = '(max-width:760px) 100vw, 50vw',
+  class: className = '',
+} = Astro.props;
+---
+
+{
+  src ? (
+    <Image src={src} alt={alt} widths={widths} sizes={sizes} class={`photo-img ${className}`} style={`aspect-ratio:${ratio}`} />
+  ) : (
+    <div class={`photo-ph ${className}`} style={`aspect-ratio:${ratio}`} aria-hidden="true">
+      <span>{label}</span>
+    </div>
+  )
+}
+
+<style>
+  .photo-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .photo-ph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: #DEDAD2;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+</style>

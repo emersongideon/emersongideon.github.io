@@ -1,0 +1,10 @@
+{
+  "_note": "Sample data so the chart renders. Replace `labels` (x-axis) and each series' `values` with your real lift history (same length as labels).",
+  "unit": "kg",
+  "labels": ["2021", "2022", "2023", "2024", "now"],
+  "series": [
+    { "name": "Squat", "color": "#4F6D8A", "values": [90, 110, 130, 150, 165] },
+    { "name": "Bench", "color": "#6E5A9A", "values": [60, 72, 82, 92, 100] },
+    { "name": "Deadlift", "color": "#B4643F", "values": [110, 140, 170, 190, 210] }
+  ]
+}

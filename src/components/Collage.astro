@@ -1,0 +1,103 @@
+---
+import { Image } from 'astro:assets';
+
+interface Img {
+  src: ImageMetadata;
+  alt: string;
+}
+interface Props {
+  images: Img[];
+  title: string;
+  /** colour of the big serif title overlaid on the board */
+  titleColor?: string;
+  /** board height on desktop */
+  height?: number;
+}
+const { images, title, titleColor = 'var(--dark-ink)', height = 720 } = Astro.props;
+
+// Aspect ratio -> grid span, so the board packs itself around whatever is dropped in.
+function span(meta: ImageMetadata) {
+  const r = meta.width / meta.height;
+  if (r >= 1.7) return { c: 4, r: 2 }; // panorama
+  if (r >= 1.2) return { c: 3, r: 2 }; // wide
+  if (r <= 0.6) return { c: 2, r: 3 }; // very tall
+  if (r <= 0.85) return { c: 2, r: 3 }; // portrait
+  return { c: 3, r: 3 }; // ~square, feature it big
+}
+
+// Shuffle the order on each build (Fisher-Yates; Math.random runs at build time).
+const shuffled = [...images];
+for (let i = shuffled.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+}
+const tiles = shuffled.map((im) => ({ ...im, ...span(im.src) }));
+
+// Placeholder tints, used only when no photos have been added yet.
+const tints = ['#B9B2A5', '#8E877C', '#6F6A62', '#A39C90', '#C9C2B5', '#5C5850', '#9A9386', '#7C766C'];
+const placeholders = Array.from({ length: 14 }, (_, i) => ({
+  tint: tints[i % tints.length],
+  c: [3, 2, 3, 2, 2, 4, 2, 3, 2, 3, 2, 3, 2, 4][i],
+  r: [3, 3, 2, 2, 2, 3, 2, 2, 3, 3, 2, 2, 2, 2][i],
+}));
+---
+
+<section class="collage" style={`--h:${height}px`} aria-label={`${title} photo collage`}>
+  <div class="board">
+    {
+      tiles.length > 0
+        ? tiles.map((t) => (
+            <div class="cell" style={`grid-column:span ${t.c};grid-row:span ${t.r}`}>
+              <Image src={t.src} alt={t.alt} widths={[240, 480, 720]} sizes="(max-width:760px) 45vw, 25vw" />
+            </div>
+          ))
+        : placeholders.map((p) => (
+            <div class="cell ph" aria-hidden="true" style={`grid-column:span ${p.c};grid-row:span ${p.r};background:${p.tint}`}>
+              <span>Add photos to src/assets</span>
+            </div>
+          ))
+    }
+  </div>
+  <div class="scrim" aria-hidden="true"></div>
+  <div class="title-wrap wrap">
+    <h1 style={`color:${titleColor}`}>{title}<span class="dot">.</span></h1>
+  </div>
+</section>
+
+<style>
+  .collage { position: relative; overflow: hidden; background: var(--dark); }
+  .board {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: 88px;
+    grid-auto-flow: dense;
+    gap: 4px;
+    padding: 4px;
+    height: var(--h);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .cell { position: relative; overflow: hidden; }
+  .cell :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ph { display: flex; align-items: center; justify-content: center; }
+  .ph span { font-family: var(--mono); font-size: 11px; color: rgba(255, 255, 255, .6); padding: 8px; text-align: center; }
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(12, 12, 14, .8) 0%, rgba(12, 12, 14, .2) 40%, rgba(12, 12, 14, 0) 65%);
+  }
+  .title-wrap { position: absolute; left: 0; right: 0; bottom: 48px; }
+  .title-wrap h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(104px, 18vw, 200px);
+    line-height: .84;
+    letter-spacing: -.035em;
+  }
+  .dot { color: var(--accent); }
+  @media (max-width: 760px) {
+    .board { grid-auto-rows: 44px; height: 520px; }
+    .title-wrap { bottom: 28px; }
+  }
+</style>

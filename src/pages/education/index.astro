@@ -1,0 +1,74 @@
+---
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import edu from '../../data/education.json';
+---
+
+<Layout title="Education">
+  <PageHeader crumbs={[{ label: 'Emerson Ng', href: '' }, { label: 'Education' }]}>
+    <button slot="actions" type="button" class="pdf-btn no-print" id="download-pdf">Download PDF</button>
+  </PageHeader>
+
+  <section class="wrap hero">
+    <h1>Education<span class="dot">.</span></h1>
+    <p>{edu.tagline}</p>
+  </section>
+
+  <section class="wrap block" aria-label="Schools">
+    <ol class="schools">
+      {
+        edu.schools.map((s) => (
+          <li class={`school${s.highlight ? ' highlight' : ''}`}>
+            <span class="period">{s.period}</span>
+            <h2>{s.name}</h2>
+            <p>{s.note}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="wrap block last" aria-labelledby="courses-h">
+    <h2 id="courses-h" class="section-h">Other courses</h2>
+    <ul class="courses">
+      {
+        edu.courses.map((c) => (
+          <li>
+            <span class="c-name">{c.name}</span>
+            <span class="c-prov">{c.provider}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>
+
+<script>
+  document.getElementById('download-pdf')?.addEventListener('click', () => window.print());
+</script>
+
+<style>
+  .pdf-btn { min-height: 44px; padding: 0 18px; border-radius: 999px; border: 0; background: var(--ink); color: var(--surface); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .pdf-btn:hover { background: #000; }
+
+  .hero { padding-top: 40px; padding-bottom: 56px; }
+  .hero h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(80px, 13vw, 152px); line-height: .86; letter-spacing: -.035em; }
+  .dot { color: var(--accent); }
+  .hero p { margin: 24px 0 0; font-family: var(--serif); font-size: clamp(20px, 3vw, 28px); color: var(--ink-2); }
+
+  .block { padding-bottom: 72px; }
+  .block.last { padding-bottom: 120px; }
+
+  .schools { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .school { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .school.highlight { background: var(--t-work); border-color: transparent; }
+  .period { font-family: var(--mono); font-size: 14px; color: var(--muted); }
+  .school h2 { margin: 0; font-size: 30px; font-weight: 900; letter-spacing: -.02em; }
+  .school p { margin: 0; font-size: 16px; color: var(--ink-2); line-height: 1.5; }
+
+  .section-h { margin: 0 0 20px; font-family: var(--serif); font-weight: 400; font-size: 40px; letter-spacing: -.02em; }
+  .courses { list-style: none; margin: 0; padding: 0; max-width: 720px; }
+  .courses li { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); font-size: 17px; }
+  .c-name { font-weight: 700; }
+  .c-prov { color: var(--muted); }
+</style>

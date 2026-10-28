@@ -1,0 +1,27 @@
+{
+  "channel": "https://www.youtube.com/@hojiakbo8200",
+  "banner": "banner.jpg",
+  "story": [
+    "[How it started: the first video, whose idea it was, what Grandpa thought of the camera.]",
+    "[The moment it blew up, and what it was like being recognised together.]",
+    "[What those videos mean to you now.]"
+  ],
+  "stats": {
+    "Subscribers": "[N]",
+    "Total views": "[N]",
+    "Videos": "[N]"
+  },
+  "favourites": [
+    { "id": "", "title": "[Video title]" }
+  ],
+  "featured": [
+    { "title": "Grandpa and the dalgona coffee craze", "source": "Mothership", "kind": "article", "href": "https://mothership.sg/2020/05/dalgona-grandfather/" },
+    { "title": "Grandpa tries bubble tea", "source": "Mothership", "kind": "article", "href": "https://mothership.sg/2020/06/grandpa-tries-bubble-tea/" },
+    { "title": "Dalgona coffee reel", "source": "Instagram", "kind": "reel", "href": "https://www.instagram.com/reel/CBVGTprnom0/" },
+    { "title": "Hojiakbo reel", "source": "Facebook", "kind": "reel", "href": "https://www.facebook.com/reel/2605701589685117" },
+    { "title": "Featured on Netflix, 2020", "source": "Netflix", "kind": "video", "fb": "https://www.facebook.com/NetflixSG/videos/1282769658766309/" },
+    { "title": "[Post caption]", "source": "Facebook", "kind": "post", "fbPost": "https://www.facebook.com/share/p/19MFp3pj9g/" },
+    { "title": "[Video title]", "source": "NECDC", "kind": "video", "fb": "https://www.facebook.com/NECDC/videos/263731544799246/" }
+  ],
+  "memory": { "name": "Grandpa", "years": "[YYYY] – [YYYY]" }
+}

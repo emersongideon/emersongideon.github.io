@@ -1,0 +1,31 @@
+{
+  "_note": "Photos: drop into src/assets/life/ and set `photo` to the filename. `cat` must match a category id. `anchor` links to the matching Countries trip.",
+  "tagline": "The big moments, the small ones, and every phone I've owned. Pick what you want to see.",
+  "cats": [
+    { "id": "family", "label": "Family", "color": "#E9DFD6" },
+    { "id": "church", "label": "Church life", "color": "#E9E4D2" },
+    { "id": "milestone", "label": "Milestones", "color": "#DCE2E8" },
+    { "id": "mission", "label": "Mission trips", "color": "#D8E3E4" },
+    { "id": "school", "label": "School and work", "color": "#DCE3D9" },
+    { "id": "injury", "label": "Injuries", "color": "#EBD8D4" },
+    { "id": "phones", "label": "Phones I've used", "color": "#E9DCDF" }
+  ],
+  "events": [
+    { "year": "1995", "cat": "milestone", "title": "Born. Loudly.", "note": "[Where, and one family legend about it]", "photo": "" },
+    { "year": "[YYYY]", "cat": "family", "title": "[Family moment]", "note": "[One line]", "photo": "" },
+    { "year": "[YYYY]", "cat": "school", "title": "[Secondary school]", "note": "[One line]", "photo": "" },
+    { "year": "[YYYY]", "cat": "phones", "title": "[First phone model]", "note": "Snake high score: [N]. Times dropped: [N].", "photo": "" },
+    { "year": "[YYYY]", "cat": "church", "title": "[Started at church / got baptised]", "note": "[One line]", "photo": "" },
+    { "year": "[YYYY]", "cat": "milestone", "title": "First guitar", "note": "[What it was, who gave it to you]", "photo": "" },
+    { "year": "[YYYY]", "cat": "milestone", "title": "Enlisted", "note": "[Unit / vocation, one line]", "photo": "" },
+    { "year": "2017", "cat": "mission", "title": "Mission trip, Thailand", "note": "[Who you went with, what you did, the moment that stuck.] Photos and the trip video are on the Countries map.", "anchor": "thailand-2017", "photo": "" },
+    { "year": "[YYYY]", "cat": "injury", "title": "[Injury], football", "note": "[What happened, weeks out, how you got back]", "photo": "" },
+    { "year": "[YYYY]", "cat": "family", "title": "Hojiakbo goes viral", "note": "Grandpa and me, accidentally famous for food videos.", "photo": "" },
+    { "year": "[YYYY]", "cat": "school", "title": "[University / first job]", "note": "[One line]", "photo": "" },
+    { "year": "[YYYY]", "cat": "mission", "title": "Mission trip, [Country]", "note": "[Second trip: what was different this time.]", "photo": "" },
+    { "year": "[YYYY]", "cat": "church", "title": "Started serving on [guitar / bass]", "note": "[One line]", "photo": "" },
+    { "year": "[YYYY]", "cat": "injury", "title": "[Injury], snowboarding", "note": "[The fall, the recovery, the lesson]", "photo": "" },
+    { "year": "[YYYY]", "cat": "milestone", "title": "Certified PT", "note": "NCSF. Fun fact, as advertised.", "photo": "" },
+    { "year": "now", "cat": "phones", "title": "[Current phone]", "note": "Typing this on it, probably.", "photo": "" }
+  ]
+}

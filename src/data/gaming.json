@@ -1,0 +1,17 @@
+{
+  "_note": "Collage hero: src/assets/gaming/collage/. Clips: YouTube ids. No design existed for this page; built on the Music pattern for review.",
+  "tagline": "Valorant and FIFA. Sleep is optional.",
+  "story": [
+    "[How you got into gaming, the game that started it, who you play with.]",
+    "[What you are grinding now, and the one highlight you will not stop talking about.]"
+  ],
+  "games": [
+    { "title": "Valorant", "detail": "[Rank, main agent]" },
+    { "title": "FIFA", "detail": "[Club, favourite mode]" }
+  ],
+  "clips": [
+    { "yt": "", "title": "[Clip title]" },
+    { "yt": "", "title": "[Clip title]" },
+    { "yt": "", "title": "[Clip title]" }
+  ]
+}

@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
+import SocialMenu from '../components/SocialMenu.astro';
 import { getImage } from 'astro:assets';
 import { url } from '../lib/url';
 import home from '../data/home.json';
@@ -35,6 +36,9 @@ const updated = new Date().toLocaleDateString('en-GB', {
 ---
 
 <Layout title="Emerson Ng">
+  <div class="topbar wrap">
+    <SocialMenu />
+  </div>
   <header class="hero" id="top">
     <div class="hero-name-wrap">
       <h1 class="hero-name">{home.name[0]}<br />{home.name[1]}</h1>
@@ -69,6 +73,14 @@ const updated = new Date().toLocaleDateString('en-GB', {
 
         <div class="m-only m-ticks" id="mticks" aria-hidden="true"></div>
         <div class="strip-wrap"><div class="strip" id="strip" role="group" aria-label="All parts"></div></div>
+        <div class="m-only strip-nav">
+          <button type="button" id="prev" class="nav-btn" aria-label="Previous part">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Left
+          </button>
+          <button type="button" id="next" class="nav-btn" aria-label="Next part">
+            Right<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
     </section>
   </main>
@@ -76,9 +88,6 @@ const updated = new Date().toLocaleDateString('en-GB', {
   <footer>
     <div class="foot">
       <span>Emerson Ng, last updated {updated}</span>
-      <nav aria-label="Social">
-        {home.social.map((s) => <a href={s.href}>{s.label}</a>)}
-      </nav>
     </div>
   </footer>
 
@@ -89,7 +98,7 @@ const updated = new Date().toLocaleDateString('en-GB', {
   :root { --step: 50vh; }
 
   /* hero */
-  .hero { max-width: 1280px; margin: 0 auto; padding: calc(96px + env(safe-area-inset-top, 0px)) 32px 80px; }
+  .hero { max-width: 1280px; margin: 0 auto; padding: 48px 32px 80px; }
   .hero-name-wrap { position: relative; display: inline-block; }
   .hero-name { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(84px, 14vw, 184px); line-height: .84; letter-spacing: -.035em; }
   .sticker { position: absolute; right: -150px; top: -10px; width: 132px; height: 132px; border-radius: 50%; background: var(--accent); color: var(--surface); display: flex; align-items: center; justify-content: center; text-align: center; font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; line-height: 1.5; transform: rotate(-12deg); padding: 12px; }
@@ -143,17 +152,18 @@ const updated = new Date().toLocaleDateString('en-GB', {
 
   footer { border-top: 1px solid var(--line); }
   .foot { max-width: 1280px; margin: 0 auto; padding: 32px 32px calc(48px + env(safe-area-inset-bottom, 0px)); display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; color: var(--muted); font-size: 15px; }
-  .foot nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
-  .foot nav a { color: var(--ink); text-decoration: none; font-weight: 600; padding: 10px 0; }
+  .topbar { display: flex; justify-content: flex-end; padding-top: calc(20px + env(safe-area-inset-top, 0px)); padding-bottom: 4px; }
 
   /* mobile: sticky screen on top, swipeable strip at the bottom */
   @media (max-width: 860px) {
-    :root { --step: 60svh; }
-    .hero { padding: calc(56px + env(safe-area-inset-top, 0px)) 20px 48px; }
-    .sticker { width: 92px; height: 92px; font-size: 10px; right: -72px; top: -28px; }
+    /* On mobile tiles change by horizontal swipe only, so the runway is just
+       one screen tall and vertical scrolling moves the page normally. */
+    .hero { padding: 24px 20px 56px; }
+    /* bottom-right of the name block, clear of the letters */
+    .sticker { width: 84px; height: 84px; font-size: 10px; left: auto; right: -2px; top: auto; bottom: -18px; }
     .intro { margin-top: 36px; text-align: left; margin-left: 0; }
-    .runway { height: calc(100svh + 13 * var(--step)); }
-    .stage { height: 100svh; padding: calc(12px + env(safe-area-inset-top, 0px)) 16px calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px; }
+    .runway { height: auto; }
+    .stage { position: static; height: auto; min-height: 100svh; padding: calc(12px + env(safe-area-inset-top, 0px)) 16px calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px; }
     .picker { display: none; }
     .screen { flex: 1 1 auto; padding: 26px 24px; border-radius: 20px; }
     .hud.tl, .hud.tr { top: 10px; } .hud.bl, .hud.br { bottom: 10px; } .hud.tl, .hud.bl { left: 10px; } .hud.tr, .hud.br { right: 10px; } .hud { width: 14px; height: 14px; }
@@ -163,15 +173,21 @@ const updated = new Date().toLocaleDateString('en-GB', {
     .line { font-size: 16px; }
     .stats { gap: 8px; } .stats dd { font-size: 13px; } .stats dt { font-size: 12px; }
     .enter-btn { min-height: 44px; font-size: 15px; }
-    .strip-wrap { display: block; overflow: hidden; padding: 12px 0 8px; margin: 0 -16px; }
-    .strip { display: flex; gap: 8px; transition: transform .35s cubic-bezier(.2, .8, .2, 1); will-change: transform; }
-    .strip .tile { flex: 0 0 64px; width: 64px; padding: 8px; border-radius: 12px; }
+    .strip-wrap { display: block; margin: 0 -16px; }
+    /* native horizontal swipe; padding lets the first/last tile reach centre */
+    .strip { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 12px calc(50% - 32px) 8px; overscroll-behavior-x: contain; }
+    .strip::-webkit-scrollbar { display: none; }
+    .strip .tile { flex: 0 0 64px; width: 64px; padding: 8px; border-radius: 12px; scroll-snap-align: center; }
     .strip .tile svg { width: 20px; height: 20px; }
     .strip .tile .name, .strip .tile .num { display: none; }
     .m-only { display: flex; }
     .m-ticks { display: flex; gap: 3px; }
     .m-ticks span { flex: 1; height: 3px; border-radius: 2px; background: var(--line); }
     .m-ticks span.on { background: var(--accent); }
+    .strip-nav { justify-content: space-between; align-items: center; margin-top: 2px; }
+    .nav-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .nav-btn svg { width: 18px; height: 18px; }
+    .nav-btn:disabled { opacity: .4; cursor: default; }
   }
   @media (prefers-reduced-motion: reduce) {
     .screen-body.enter, .enter .scan { animation: none; }
@@ -220,10 +236,15 @@ const updated = new Date().toLocaleDateString('en-GB', {
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const isMobile = () => matchMedia('(max-width: 860px)').matches;
   let active = -1;
-  function show(i: number) {
+  // `fromStrip` = change came from the user swiping the strip; in that case we
+  // don't re-scroll the strip (that fights the finger) or replay the slide-in.
+  function show(i: number, fromStrip = false) {
     if (i === active) return;
     active = i;
+    if (prevBtn) prevBtn.disabled = i === 0;
+    if (nextBtn) nextBtn.disabled = i === ITEMS.length - 1;
     const it = ITEMS[i];
     $('s-cat').textContent = GROUPS[it.g];
     $('s-count').textContent = `${pad(i + 1)} / ${ITEMS.length}`;
@@ -245,22 +266,52 @@ const updated = new Date().toLocaleDateString('en-GB', {
     }
     document.querySelectorAll('.tile[data-i]').forEach((b) => b.setAttribute('aria-pressed', String(+(b as HTMLElement).dataset.i! === i)));
     document.querySelectorAll('#ticks span, #mticks span').forEach((t, k) => t.classList.toggle('on', (k % ITEMS.length) <= i));
-    const body = $('screen');
-    body.classList.remove('enter');
-    void body.offsetWidth;
-    body.classList.add('enter');
-    const strip = $('strip');
-    const tile = strip.children[i] as HTMLElement | undefined;
-    if (tile) {
-      const wrap = strip.parentElement!.clientWidth;
-      strip.style.transform = `translateX(${wrap / 2 - (tile.offsetLeft + tile.offsetWidth / 2)}px)`;
+    if (!fromStrip) {
+      const body = $('screen');
+      body.classList.remove('enter');
+      void body.offsetWidth;
+      body.classList.add('enter');
+      centerStrip(i);
     }
+  }
+
+  /* Mobile strip: swipe to explore, selection syncs both ways. */
+  const stripEl = $('strip');
+  const prevBtn = document.getElementById('prev') as HTMLButtonElement | null;
+  const nextBtn = document.getElementById('next') as HTMLButtonElement | null;
+  let stripProgrammatic = false;
+  let stripRelease: number | undefined;
+  let stripRAF = 0;
+
+  function centerStrip(i: number) {
+    const tile = stripEl.children[i] as HTMLElement | undefined;
+    if (!tile) return;
+    const sRect = stripEl.getBoundingClientRect();
+    const tRect = tile.getBoundingClientRect();
+    const left = stripEl.scrollLeft + (tRect.left - sRect.left) - (stripEl.clientWidth - tRect.width) / 2;
+    stripProgrammatic = true;
+    stripEl.scrollTo({ left, behavior: reduce ? 'auto' : 'smooth' });
+    clearTimeout(stripRelease);
+    stripRelease = window.setTimeout(() => { stripProgrammatic = false; }, reduce ? 0 : 450);
+  }
+
+  function centeredStripIndex(): number {
+    const c = stripEl.getBoundingClientRect().left + stripEl.clientWidth / 2;
+    let best = 0, bestDist = Infinity;
+    for (let k = 0; k < stripEl.children.length; k++) {
+      const r = stripEl.children[k].getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - c);
+      if (d < bestDist) { bestDist = d; best = k; }
+    }
+    return best;
   }
 
   const runway = $('runway');
   function stepSize() { return (runway.offsetHeight - window.innerHeight) / ITEMS.length; }
   let ticking = false;
   function onScroll() {
+    // On mobile, vertical scrolling must not change tiles (swipe-only).
+    if (isMobile()) return;
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
@@ -279,9 +330,45 @@ const updated = new Date().toLocaleDateString('en-GB', {
     window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
     show(i);
   }
-  document.addEventListener('click', (e) => { const b = (e.target as Element).closest('.tile[data-i]'); if (b) jumpTo(+(b as HTMLElement).dataset.i!); });
+  document.addEventListener('click', (e) => {
+    const b = (e.target as Element).closest('.tile[data-i]');
+    if (!b) return;
+    const i = +(b as HTMLElement).dataset.i!;
+    if (isMobile()) show(i); else jumpTo(i); // mobile: no vertical jump
+  });
   document.addEventListener('focusin', (e) => { const b = (e.target as Element).closest('.tile[data-i]'); if (b) show(+(b as HTMLElement).dataset.i!); });
   if (finePointer) $('roster').addEventListener('mouseover', (e) => { const b = (e.target as Element).closest('.tile[data-i]'); if (b) show(+(b as HTMLElement).dataset.i!); });
 
-  show(0);
+  const step = (d: number) => show(Math.min(ITEMS.length - 1, Math.max(0, active + d)));
+  prevBtn?.addEventListener('click', () => step(-1));
+  nextBtn?.addEventListener('click', () => step(1));
+
+  // While swiping: native scroll-snap moves the strip, we just update the card.
+  stripEl.addEventListener('scroll', () => {
+    if (stripProgrammatic) return;
+    cancelAnimationFrame(stripRAF);
+    stripRAF = requestAnimationFrame(() => {
+      const i = centeredStripIndex();
+      if (i !== active) show(i, true);
+    });
+  }, { passive: true });
+
+  // Remember where the user was so returning from a sub-page (via the
+  // breadcrumb) resumes the same tile and scroll instead of restarting.
+  const POS_KEY = 'home-pos';
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  addEventListener('pagehide', () => {
+    try {
+      sessionStorage.setItem(POS_KEY, JSON.stringify({ active, scrollY: window.scrollY }));
+    } catch { /* storage blocked; ignore */ }
+  });
+
+  let saved: { active?: number; scrollY?: number } | null = null;
+  try { saved = JSON.parse(sessionStorage.getItem(POS_KEY) || 'null'); } catch { /* ignore */ }
+  if (saved && typeof saved.active === 'number') {
+    show(Math.min(ITEMS.length - 1, Math.max(0, saved.active)));
+    if (typeof saved.scrollY === 'number') window.scrollTo(0, saved.scrollY);
+  } else {
+    show(0);
+  }
 </script>

@@ -1,0 +1,35 @@
+/* Clean print / "Download PDF" output: strip chrome, flatten colours. */
+@media print {
+  .grain,
+  .page-head-bar,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: none;
+  }
+  .wrap {
+    max-width: none;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  section {
+    break-inside: avoid;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+  article,
+  li {
+    break-inside: avoid;
+  }
+  * {
+    box-shadow: none !important;
+  }
+}

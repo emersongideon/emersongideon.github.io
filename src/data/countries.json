@@ -1,0 +1,24 @@
+{
+  "_note": "Each place: name, when (year), why (Trip | Mission trip | Holiday | Snowboarding ...), region, lon, lat. Optional media: photos [filenames in src/assets/countries/], clip { yt | fb | src, title }. Mission trips link to the matching Life story.",
+  "places": [
+    {
+      "name": "Thailand",
+      "when": "2017",
+      "why": "Mission trip",
+      "region": "Southeast Asia",
+      "lon": 100,
+      "lat": 15,
+      "lifeAnchor": "thailand-2017",
+      "clip": {
+        "fb": "https://www.facebook.com/emersongideon/videos/10155141931900222/",
+        "title": "Thailand mission trip 2017"
+      },
+      "photos": []
+    },
+    { "name": "[Country]", "when": "[YYYY]", "why": "Snowboarding", "region": "East Asia", "lon": 139, "lat": 37, "photos": [] },
+    { "name": "[Country]", "when": "[YYYY]", "why": "Holiday", "region": "Europe", "lon": 2, "lat": 47, "photos": [] },
+    { "name": "[Country]", "when": "[YYYY]", "why": "Holiday", "region": "Oceania", "lon": 144, "lat": -30, "photos": [] },
+    { "name": "[Country]", "when": "[YYYY]", "why": "Mission trip", "region": "South Asia", "lon": 80, "lat": 20, "photos": [] },
+    { "name": "[Country]", "when": "[YYYY]", "why": "Holiday", "region": "North America", "lon": -100, "lat": 40, "photos": [] }
+  ]
+}

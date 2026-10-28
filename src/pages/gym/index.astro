@@ -1,0 +1,141 @@
+---
+import { scaleLinear } from 'd3-scale';
+import { line } from 'd3-shape';
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import gym from '../../data/gym.json';
+import lifts from '../../data/lifts.json';
+
+// Build-time line chart: compute scales + path strings with d3, render as SVG.
+const CW = 1150;
+const CH = 240;
+const PAD = { t: 20, r: 10, b: 28, l: 10 };
+const n = lifts.labels.length;
+const allValues = lifts.series.flatMap((s) => s.values);
+const yMin = Math.min(...allValues);
+const yMax = Math.max(...allValues);
+const x = scaleLinear().domain([0, n - 1]).range([PAD.l, CW - PAD.r]);
+const y = scaleLinear().domain([yMin * 0.92, yMax * 1.04]).range([CH - PAD.b, PAD.t]);
+const mkLine = line<number>()
+  .x((_d, i) => x(i))
+  .y((d) => y(d));
+const series = lifts.series.map((s) => ({ ...s, d: mkLine(s.values) ?? '' }));
+const gridY = [yMax, (yMin + yMax) / 2, yMin].map((v) => ({ v, py: y(v) }));
+---
+
+<Layout title="Gym">
+  <PageHeader crumbs={[{ label: 'Emerson Ng', href: '' }, { label: 'Gym' }]} />
+
+  <section class="wrap hero">
+    <div>
+      <h1>Gym<span class="dot">.</span></h1>
+      <p>{gym.tagline}</p>
+    </div>
+    <aside class="funfact">
+      <span class="ff-tag">FUN FACT</span>
+      <p class="ff-title">{gym.funFact.title}</p>
+      <p class="ff-detail">{gym.funFact.detail}</p>
+    </aside>
+  </section>
+
+  <section class="wrap block" aria-labelledby="pr-h">
+    <div class="block-head">
+      <h2 id="pr-h">Personal records</h2>
+    </div>
+    <div class="pr-grid">
+      {
+        gym.prs.map((pr) => (
+          <article class={`pr${pr.feature ? ' feature' : ''}`}>
+            <p class="pr-lift">{pr.lift}</p>
+            <p class="pr-num">{pr.kg}<span class="pr-unit"> kg</span></p>
+            <p class="pr-sub">{pr.feature ? `bodyweight ${pr.bodyweight} kg` : pr.date}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="prog-h">
+    <figure class="chart-card">
+      <figcaption id="prog-h" class="chart-head">
+        <span class="chart-title">How the numbers moved</span>
+        <span class="legend">
+          {series.map((s) => (
+            <span><span class="lg" style={`background:${s.color}`} />{s.name}</span>
+          ))}
+        </span>
+      </figcaption>
+      <div class="chart-scroll">
+        <svg viewBox={`0 0 ${CW} ${CH}`} role="img" aria-label="Lift progress over time">
+          <g stroke="var(--line)">
+            {gridY.map((g) => <line x1={PAD.l} y1={g.py} x2={CW - PAD.r} y2={g.py} />)}
+          </g>
+          {series.map((s) => <path d={s.d} fill="none" stroke={s.color} stroke-width="3" />)}
+        </svg>
+      </div>
+      <div class="chart-x">
+        {lifts.labels.map((l) => <span>{l}</span>)}
+      </div>
+    </figure>
+  </section>
+
+  <section class="wrap block last" aria-labelledby="split-h">
+    <h2 id="split-h">My week</h2>
+    <div class="week">
+      {
+        gym.week.map((d) => (
+          <div class="day" style={`background:${d.tint}`}>
+            <p class="day-name">{d.day}</p>
+            <p class="day-label">{d.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero { padding-top: 40px; padding-bottom: 56px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; justify-content: space-between; }
+  .hero h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(88px, 15vw, 168px); line-height: .84; letter-spacing: -.035em; }
+  .dot { color: var(--accent); }
+  .hero > div p { margin: 24px 0 0; font-family: var(--serif); font-size: clamp(20px, 3vw, 28px); color: var(--ink-2); }
+  .funfact { position: relative; max-width: 360px; background: var(--t-life); border-radius: 24px; padding: 28px; transform: rotate(2deg); }
+  .ff-tag { position: absolute; top: -16px; left: 24px; padding: 6px 14px; border-radius: 999px; background: var(--ink); color: var(--surface); font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; }
+  .ff-title { margin: 8px 0 0; font-size: 24px; font-weight: 900; line-height: 1.15; }
+  .ff-detail { margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+
+  .block { padding-bottom: 72px; }
+  .block.last { padding-bottom: 120px; }
+  .block-head { margin-bottom: 24px; }
+  .block h2 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 56px; letter-spacing: -.02em; }
+
+  .pr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .pr { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 28px; }
+  .pr.feature { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .pr-lift { margin: 0; font-size: 18px; font-weight: 700; }
+  .pr-num { margin: 16px 0 0; font-size: 72px; font-weight: 900; letter-spacing: -.04em; line-height: 1; }
+  .pr-unit { font-size: 24px; letter-spacing: 0; }
+  .pr-sub { margin: 10px 0 0; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .pr.feature .pr-sub { color: #B8B3A8; }
+
+  .chart-card { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 32px; }
+  .chart-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+  .chart-title { font-size: 24px; font-weight: 900; }
+  .legend { display: flex; gap: 16px; font-size: 14px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .lg { width: 12px; height: 12px; border-radius: 50%; }
+  .chart-scroll { overflow-x: auto; }
+  .chart-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+  .chart-x { display: flex; justify-content: space-between; margin-top: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  .week { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .day { border-radius: 18px; padding: 20px; min-height: 120px; }
+  .day:nth-child(4), .day:nth-child(7) { border: 1px solid var(--line); }
+  .day-name { margin: 0; font-family: var(--mono); font-size: 12px; }
+  .day-label { margin: 10px 0 0; font-size: 18px; font-weight: 700; }
+
+  @media (max-width: 760px) {
+    .block h2 { font-size: 40px; }
+    .pr-num { font-size: 56px; }
+  }
+</style>

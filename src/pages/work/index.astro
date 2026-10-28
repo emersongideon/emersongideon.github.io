@@ -1,0 +1,126 @@
+---
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import work from '../../data/work.json';
+---
+
+<Layout title="Work">
+  <PageHeader crumbs={[{ label: 'Emerson Ng', href: '' }, { label: 'Work' }]}>
+    <button slot="actions" type="button" class="pdf-btn no-print" id="download-pdf">Download PDF</button>
+  </PageHeader>
+
+  <section class="wrap hero">
+    <h1>Work<span class="dot">.</span></h1>
+    <div class="intro">
+      <p class="lead">{work.tagline}</p>
+      <p class="sub">{work.summary}</p>
+    </div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="lanes-h">
+    <h2 id="lanes-h" class="kicker">Everything at once</h2>
+    <div class="lanes-scroll">
+      <div class="lanes">
+        {
+          work.lanes.map((l) => (
+            <div class="lane">
+              <span class={`lane-label${l.strong ? ' strong' : ''}`}>{l.label}</span>
+              <div class="lane-track">
+                <span class="lane-bar" style={`left:${l.start}%;width:${l.width}%;background:${l.color}`} />
+              </div>
+            </div>
+          ))
+        }
+        <div class="lane axis">
+          <span></span>
+          <div class="axis-row">{work.axis.map((a) => <span>{a}</span>)}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="exp-h">
+    <h2 id="exp-h" class="section-h">Experience</h2>
+    <div class="exp">
+      {
+        work.experience.map((e, i) => (
+          <article class={`exp-row${i === 0 ? ' first' : ''}`}>
+            <div>
+              <p class="period">{e.period}</p>
+              <h3>{e.role}</h3>
+              <p class="company">{e.company}</p>
+            </div>
+            <ul>{e.points.map((pt) => <li>{pt}</li>)}</ul>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap block last">
+    <div class="foot-cards">
+      <div class="skills-card">
+        <h2>Skills</h2>
+        <div class="skills">
+          {work.skills.map((s) => <span class="skill">{s}</span>)}
+        </div>
+      </div>
+      <div class="contact-card">
+        <p class="contact-q">Want to work together?</p>
+        <a class="contact-email" href={`mailto:${work.email}`}>{work.email}</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.getElementById('download-pdf')?.addEventListener('click', () => window.print());
+</script>
+
+<style>
+  .pdf-btn { min-height: 44px; padding: 0 18px; border-radius: 999px; border: 0; background: var(--ink); color: var(--surface); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .pdf-btn:hover { background: #000; }
+
+  .hero { padding-top: 40px; padding-bottom: 56px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-end; justify-content: space-between; }
+  .hero h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(80px, 13vw, 152px); line-height: .86; letter-spacing: -.035em; }
+  .dot { color: var(--accent); }
+  .intro { max-width: 460px; text-align: right; }
+  .lead { margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -.02em; line-height: 1.15; }
+  .sub { margin: 10px 0 0; font-size: 17px; color: var(--ink-2); line-height: 1.5; }
+
+  .block { padding-bottom: 64px; }
+  .block.last { padding-bottom: 120px; }
+  .kicker { margin: 0 0 16px; font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+  .section-h { margin: 0 0 24px; font-family: var(--serif); font-weight: 400; font-size: 56px; letter-spacing: -.02em; }
+
+  .lanes-scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; }
+  .lanes { min-width: 760px; padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .lane { display: grid; grid-template-columns: 180px 1fr; gap: 16px; align-items: center; }
+  .lane-label { font-size: 14px; color: var(--muted); }
+  .lane-label.strong { font-weight: 700; color: var(--ink); }
+  .lane-track { position: relative; height: 32px; }
+  .lane-bar { position: absolute; top: 0; bottom: 0; border-radius: 999px; }
+  .axis { border-top: 1px solid var(--line); padding-top: 10px; }
+  .axis-row { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  .exp-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px 40px; padding: 32px 0; border-top: 1px solid var(--line); }
+  .exp-row.first { border-top: 2px solid var(--ink); }
+  .period { margin: 0; font-family: var(--mono); font-size: 14px; color: var(--muted); }
+  .exp-row h3 { margin: 8px 0 0; font-size: 28px; font-weight: 900; letter-spacing: -.02em; }
+  .company { margin: 4px 0 0; font-size: 17px; }
+  .exp-row ul { margin: 0; padding-left: 20px; font-size: 17px; line-height: 1.6; color: var(--ink-2); }
+
+  .foot-cards { display: flex; flex-wrap: wrap; gap: 20px; }
+  .skills-card { flex: 2 1 520px; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 36px; }
+  .skills-card h2 { margin: 0 0 20px; font-size: 28px; font-weight: 900; }
+  .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .skill { padding: 10px 18px; border-radius: 999px; background: var(--t-made); font-size: 16px; font-weight: 600; }
+  .contact-card { flex: 1 1 320px; background: var(--ink); color: var(--surface); border-radius: 28px; padding: 36px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+  .contact-q { margin: 0; font-family: var(--serif); font-size: 30px; line-height: 1.2; }
+  .contact-email { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; background: var(--dark-ink); color: var(--dark); text-decoration: none; font-weight: 700; overflow-wrap: anywhere; padding: 8px 16px; }
+
+  @media (max-width: 760px) {
+    .intro { text-align: left; }
+    .section-h { font-size: 40px; }
+  }
+</style>

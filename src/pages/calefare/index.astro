@@ -1,0 +1,58 @@
+---
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import LiteYouTube from '../../components/LiteYouTube.astro';
+import cal from '../../data/calefare.json';
+---
+
+<Layout title="Calefare">
+  <PageHeader
+    crumbs={[
+      { label: 'Emerson Ng', href: '' },
+      { label: 'Side hustles', href: 'projects/' },
+      { label: 'Calefare' },
+    ]}
+  />
+
+  <section class="wrap hero">
+    <h1>Spot<br />the guy<span class="dot">.</span></h1>
+    <p>{cal.tagline}</p>
+  </section>
+
+  <section class="wrap grid" aria-label="Videos">
+    {
+      cal.videos.map((v) => (
+        <figure>
+          {v.yt ? (
+            <LiteYouTube id={v.yt} title={v.title} start={v.start || undefined} />
+          ) : (
+            <div class="ph" aria-hidden="true">[YouTube embed]</div>
+          )}
+          <figcaption>
+            <span class="c-title">{v.title}, {v.year}</span>
+            <span class="c-me">{v.me}</span>
+          </figcaption>
+        </figure>
+      ))
+    }
+  </section>
+</Layout>
+
+<style>
+  .hero { padding-top: 40px; padding-bottom: 48px; }
+  .hero h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(80px, 13vw, 152px); line-height: .86; letter-spacing: -.035em; }
+  .dot { color: var(--accent); }
+  .hero p { margin: 24px 0 0; font-family: var(--serif); font-size: clamp(20px, 3vw, 28px); color: var(--ink-2); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 28px 20px; padding-bottom: 120px; }
+  figure { margin: 0; }
+  .ph { aspect-ratio: 16/9; border-radius: 20px; background: #DEDAD2; border: 1px dashed #BDB8AE; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  figure :global(.lyt) { border-radius: 20px; }
+  figcaption { margin-top: 12px; display: flex; justify-content: space-between; gap: 12px; font-size: 16px; }
+  .c-title { font-weight: 700; }
+  .c-me { padding: 2px 10px; border-radius: 999px; background: var(--t-love); font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>

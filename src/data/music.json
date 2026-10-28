@@ -1,0 +1,44 @@
+{
+  "_note": "Collage photos: drop into src/assets/music/collage/. Other photos (gigs, memories): drop into src/assets/music/ and reference the filename. Videos: YouTube id in `yt`.",
+  "tagline": "Bass, guitar, worship nights, and one original with an MV.",
+  "story": [
+    "I started on a keyboard, right hand only, following the preset songs. Ode to Joy and the like.",
+    "Then in Sec 1, my classmate Jennifer brought her guitar to school, and I remember thinking, wow, that looks fun. That's where guitar started.",
+    "[Keep going: when bass came in, first time playing on stage, what music means to you now.]"
+  ],
+  "bigNights": {
+    "mv": { "yt": "", "title": "ThatsWorship, [Song title]", "subtitle": "an original, on bass", "spotify": "" },
+    "gigs": [
+      { "title": "ThatsWorship worship night", "year": "[YYYY]", "photo": "" },
+      { "title": "FOPX night", "year": "[YYYY]", "photo": "" }
+    ]
+  },
+  "jams": [
+    { "fb": "https://www.facebook.com/kan.z.jun/videos/10216162838199647/", "title": "Live gig" },
+    { "fb": "https://www.facebook.com/kan.z.jun/videos/2666092326868995/", "title": "Jam session" },
+    { "fb": "https://www.facebook.com/northern.hills.sg/videos/500429860551019/", "title": "Live gig" }
+  ],
+  "memoriesIntro": "Teachers' Day, OCS socials, weddings.",
+  "memories": [
+    { "caption": "Teachers' Day, [YYYY]", "photo": "" },
+    { "caption": "OCS social night", "photo": "" },
+    { "caption": "[Name] and [Name]'s wedding", "photo": "" },
+    { "caption": "Teachers' Day, [YYYY]", "photo": "" },
+    { "caption": "[Name] and [Name]'s wedding", "photo": "" }
+  ],
+  "services": {
+    "count": "[N]",
+    "videos": [
+      { "yt": "", "date": "[DD MMM YY]" },
+      { "yt": "", "date": "[DD MMM YY]" },
+      { "yt": "", "date": "[DD MMM YY]" },
+      { "yt": "", "date": "[DD MMM YY]" }
+    ]
+  },
+  "competition": {
+    "placing": "Top 10",
+    "title": "Sungha Jung fingerstyle competition",
+    "detail": "[YYYY], [song you played]",
+    "yt": ""
+  }
+}

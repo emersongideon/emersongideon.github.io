@@ -12,27 +12,18 @@
     "life": "Life"
   },
   "items": [
+    { "g": "life", "title": "Life", "href": "life/", "icon": "life", "img": "", "line": "Family, church, mission trips, injuries, and every phone I've dropped.", "stats": [["Since", "1995"], ["Filters", "Family, church, missions, injuries, phones"], ["Moments", "[N]"]] },
+    { "g": "life", "title": "Countries", "href": "countries/", "icon": "globe", "img": "", "line": "[N] countries and a camera roll that needs therapy.", "stats": [["Visited", "[N] countries"], ["Mission trips", "[N]"], ["Views", "Map and list"]] },
     { "g": "love", "title": "Music", "href": "music/", "icon": "music", "img": "", "line": "Bass, guitar, worship nights, and one original with an MV.", "stats": [["Plays", "Bass and guitar"], ["Highlight", "Top 10, Sungha Jung fingerstyle"], ["Big nights", "ThatsWorship, FOPX"]] },
     { "g": "love", "title": "Gym", "href": "gym/", "icon": "gym", "img": "", "line": "Lifting, a weekly split, and a fun fact about a certificate.", "stats": [["Fun fact", "Certified PT (NCSF)"], ["Big three", "[N] kg total"], ["Split", "Push, pull, legs"]] },
     { "g": "love", "title": "Sports", "href": "sports/", "icon": "sports", "img": "", "line": "Football, snowboarding, and everything else with a scoreboard.", "stats": [["Title", "Sportsman of the Year"], ["Trophy", "1st, 2018 IM League Soccer"], ["Also", "Snowboarding, [sport]"]] },
     { "g": "love", "title": "Photography", "href": "photography/", "icon": "photo", "img": "", "line": "Ten thousand photos, maybe forty keepers.", "stats": [["Shoots", "[What you shoot]"], ["Kit", "[Camera, lens]"], ["Keepers", "[N]"]] },
     { "g": "love", "title": "Gaming", "href": "gaming/", "icon": "game", "img": "", "line": "Valorant and FIFA. Sleep is optional.", "stats": [["Valorant", "[Rank, main]"], ["FIFA", "[Club, mode]"], ["Sleep", "Optional"]] },
     { "g": "made", "title": "cmdtempo.dev", "href": "projects/#cmdtempo", "icon": "code", "img": "", "line": "Things I build after 11pm.", "stats": [["What", "[One-line pitch]"], ["Stack", "[Stack]"], ["Status", "[Live / beta]"]] },
-    { "g": "made", "title": "Arsenal data piece", "href": "projects/#arsenal", "icon": "chart", "img": "", "line": "A data story about Arsenal, with charts that move as you scroll.", "stats": [["Format", "Scrollytelling"], ["Question", "[What it answers]"], ["Tools", "[Tools]"]] },
-    { "g": "made", "title": "FPL", "href": "projects/#fpl", "icon": "ball", "img": "", "line": "Captain picks: questionable.", "stats": [["Season", "[YY/YY]"], ["Best rank", "[N]"], ["Captaincy", "Questionable"]] },
+    { "g": "made", "title": "Data journalism", "href": "projects/#data", "icon": "chart", "img": "", "line": "Arsenal eras and an FPL Substack. Two ways I got into data journaling.", "stats": [["Arsenal eras", "An essay in charts"], ["FPL Substack", "mbappetizer, weekly-ish"], ["Why", "Kickstart a data habit"]] },
     { "g": "made", "title": "Calefare", "href": "calefare/", "icon": "film", "img": "", "line": "Ads and shows. Blink and you'll miss me.", "stats": [["Appearances", "[N] ads and shows"], ["Best cameo", "[Brand]"], ["Screen time", "Very brief"]] },
     { "g": "made", "title": "Hojiakbo", "href": "hojiakbo/", "icon": "play", "img": "", "line": "Grandpa and me, accidentally famous for food videos.", "stats": [["Channel", "YouTube, with Grandpa"], ["Subscribers", "[N]"], ["Known for", "Food videos"]] },
     { "g": "work", "title": "Work", "href": "work/", "icon": "work", "img": "", "line": "The serious bit. Full CV inside.", "stats": [["Role", "[Job title]"], ["Company", "[Company]"], ["Since", "[YYYY]"]] },
-    { "g": "work", "title": "Education", "href": "education/", "icon": "edu", "img": "", "line": "Where I learned things. Some of them I even remember.", "stats": [["Degree", "[Degree]"], ["School", "[University]"], ["Graduated", "[YYYY]"]] },
-    { "g": "life", "title": "Life", "href": "life/", "icon": "life", "img": "", "line": "Family, church, mission trips, injuries, and every phone I've dropped.", "stats": [["Since", "1995"], ["Filters", "Family, church, missions, injuries, phones"], ["Moments", "[N]"]] },
-    { "g": "life", "title": "Countries", "href": "countries/", "icon": "globe", "img": "", "line": "[N] countries and a camera roll that needs therapy.", "stats": [["Visited", "[N] countries"], ["Mission trips", "[N]"], ["Views", "Map and list"]] }
-  ],
-  "social": [
-    { "label": "LinkedIn", "href": "#" },
-    { "label": "Instagram", "href": "#" },
-    { "label": "Facebook", "href": "#" },
-    { "label": "YouTube", "href": "#" },
-    { "label": "GitHub", "href": "https://github.com/emersongideon" },
-    { "label": "Twitter", "href": "#" }
+    { "g": "work", "title": "Education", "href": "education/", "icon": "edu", "img": "", "line": "Where I learned things. Some of them I even remember.", "stats": [["Degree", "[Degree]"], ["School", "[University]"], ["Graduated", "[YYYY]"]] }
   ]
 }

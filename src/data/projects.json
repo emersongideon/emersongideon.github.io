@@ -1,0 +1,30 @@
+{
+  "tagline": "Things I build after 11pm.",
+  "cmdtempo": {
+    "name": "cmdtempo.dev",
+    "blurb": "[What it does and who it's for, in one or two lines.]",
+    "href": "https://cmdtempo.dev",
+    "stack": "[stack]",
+    "status": "[live / beta]"
+  },
+  "dataJournalism": {
+    "intro": "I started a Substack to kickstart my interest in data journaling. Here is where it has gone so far.",
+    "pieces": [
+      {
+        "title": "Arsenal eras",
+        "blurb": "A data story about Arsenal's eras, told in charts.",
+        "tag": "Essay in charts",
+        "href": "https://emersongideon.github.io/arsenal-eras/"
+      },
+      {
+        "title": "FPL Substack",
+        "blurb": "Fantasy Premier League, written up. Captain picks: questionable.",
+        "tag": "Substack",
+        "href": "https://mbappetizer.substack.com/"
+      }
+    ]
+  },
+  "calefareTeaser": {
+    "blurb": "Ads, shows and the occasional guy in the background. Blink and you'll miss me."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_note": "Each video: YouTube id in `yt`, the show/brand in `title`, `year`, and `me` for the 'spot me' timestamp (e.g. 'me at 0:12'). `start` optional, seconds, jumps the player to your moment.",
+  "tagline": "Calefare work: ads, shows, and a lot of walking past the camera on cue.",
+  "videos": [
+    { "yt": "", "title": "[Brand / show]", "year": "[YYYY]", "me": "me at [0:12]", "start": 0 },
+    { "yt": "", "title": "[Brand / show]", "year": "[YYYY]", "me": "me at [0:12]", "start": 0 },
+    { "yt": "", "title": "[Brand / show]", "year": "[YYYY]", "me": "me at [0:12]", "start": 0 },
+    { "yt": "", "title": "[Brand / show]", "year": "[YYYY]", "me": "me at [0:12]", "start": 0 }
+  ]
+}

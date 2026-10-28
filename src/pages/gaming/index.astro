@@ -1,0 +1,70 @@
+---
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Collage from '../../components/Collage.astro';
+import LiteYouTube from '../../components/LiteYouTube.astro';
+import gaming from '../../data/gaming.json';
+
+const collageGlob = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/gaming/collage/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const collageImages = Object.values(collageGlob).map((m) => ({ src: m.default, alt: 'Gaming screenshot' }));
+const clips = gaming.clips.filter((c) => c.yt);
+---
+
+<Layout title="Gaming">
+  <PageHeader crumbs={[{ label: 'Emerson Ng', href: '' }, { label: 'Gaming' }]} />
+
+  <Collage images={collageImages} title="Gaming" />
+
+  <section class="wrap intro">
+    <div class="story">
+      {gaming.story.map((p) => <p>{p}</p>)}
+    </div>
+    <div class="games">
+      {
+        gaming.games.map((g) => (
+          <div class="game">
+            <p class="g-title">{g.title}</p>
+            <p class="g-detail">{g.detail}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    clips.length > 0 && (
+      <section class="wrap block" aria-label="Clips">
+        <h2>Highlights</h2>
+        <div class="clip-grid">
+          {clips.map((c) => (
+            <figure>
+              <LiteYouTube id={c.yt} title={c.title} />
+              <figcaption>{c.title}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Layout>
+
+<style>
+  .intro { display: flex; flex-wrap: wrap; gap: 48px 80px; padding-top: 88px; padding-bottom: 72px; }
+  .story { flex: 2 1 520px; max-width: 720px; display: flex; flex-direction: column; gap: 22px; }
+  .story p { margin: 0; font-size: 21px; line-height: 1.65; color: var(--ink-2); }
+  .games { flex: 1 1 260px; display: flex; flex-direction: column; gap: 16px; }
+  .game { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+  .g-title { margin: 0; font-size: 24px; font-weight: 900; letter-spacing: -.02em; }
+  .g-detail { margin: 8px 0 0; color: var(--ink-2); }
+
+  .block { padding-bottom: 96px; }
+  .block h2 { margin: 0 0 24px; font-family: var(--serif); font-weight: 400; font-size: 48px; letter-spacing: -.02em; }
+  .clip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px 20px; }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; font-size: 16px; font-weight: 600; }
+
+  @media (max-width: 760px) { .block h2 { font-size: 36px; } .intro { padding-top: 56px; } }
+</style>

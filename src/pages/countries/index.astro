@@ -1,0 +1,208 @@
+---
+import { geoNaturalEarth1, geoPath } from 'd3-geo';
+import { feature } from 'topojson-client';
+// @ts-ignore - world-atlas ships a plain TopoJSON file
+import world from 'world-atlas/countries-110m.json';
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Photo from '../../components/Photo.astro';
+import FbVideo from '../../components/FbVideo.astro';
+import LiteYouTube from '../../components/LiteYouTube.astro';
+import { url } from '../../lib/url';
+import data from '../../data/countries.json';
+
+const W = 1000;
+const H = 500;
+const land: any = feature(world as any, (world as any).objects.countries);
+const projection = geoNaturalEarth1().fitSize([W, H], land);
+const pathGen = geoPath(projection);
+const countryPaths = land.features.map((f: any) => pathGen(f)).filter(Boolean) as string[];
+
+const glob = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/countries/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true },
+);
+const photo = (file: string) => (file ? glob[`../../assets/countries/${file}`]?.default : undefined);
+
+const places = data.places.map((p, i) => {
+  const xy = projection([p.lon, p.lat]) ?? [0, 0];
+  return { ...p, i, xp: (xy[0] / W) * 100, yp: (xy[1] / H) * 100, mission: p.why === 'Mission trip' };
+});
+---
+
+<Layout title="Countries">
+  <PageHeader crumbs={[{ label: 'Emerson Ng', href: '' }, { label: 'Countries' }]} />
+
+  <section class="wrap hero">
+    <div>
+      <h1>Countries<span class="dot">.</span></h1>
+      <p>A camera roll that needs therapy.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="View">
+      <button type="button" id="to-map" class="seg on" aria-pressed="true">Map</button>
+      <button type="button" id="to-list" class="seg" aria-pressed="false">List</button>
+    </div>
+  </section>
+
+  <section class="wrap layout">
+    <div class="view-col">
+      <div class="map-card" id="map-view">
+        <div class="map-box">
+          <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="World map with visited countries">
+            <g fill="#DAD6CD" stroke="#EEECE7" stroke-width="0.5" stroke-linejoin="round">
+              {countryPaths.map((d) => <path d={d} />)}
+            </g>
+          </svg>
+          {
+            places.map((p) => (
+              <button
+                type="button"
+                class={`marker${p.mission ? ' mission' : ''}`}
+                data-i={p.i}
+                aria-label={p.name}
+                style={`left:${p.xp}%;top:${p.yp}%`}
+              >
+                <span class="core" />
+              </button>
+            ))
+          }
+        </div>
+        <div class="legend">
+          <span><span class="lg lg-trip" />Trip</span>
+          <span><span class="lg lg-mission" />Mission trip</span>
+        </div>
+      </div>
+
+      <ul class="list-view" id="list-view" hidden>
+        {
+          places.map((p) => (
+            <li>
+              <button type="button" class="list-row" data-i={p.i}>
+                <span class="lr-when">{p.when}</span>
+                <span class="lr-name">{p.name}</span>
+                <span class="lr-region">{p.region}</span>
+                <span class={`lr-why${p.mission ? ' mission' : ''}`}>{p.why}</span>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="trip-col">
+      {
+        places.map((p) => (
+          <article class="trip" data-i={p.i} hidden={p.i !== 0}>
+            <span class={`tag${p.mission ? ' mission' : ''}`}>{p.why}</span>
+            <h2>{p.name}</h2>
+            <p class="tmeta">{p.when}, {p.region}</p>
+            <p class="tblurb">[One line you'd say if someone asked how it was.]</p>
+            <div class="tmedia">
+              {p.clip && 'fb' in p.clip && p.clip.fb && <FbVideo href={p.clip.fb} title={p.clip.title} />}
+              {p.clip && 'yt' in p.clip && (p.clip as any).yt && <LiteYouTube id={(p.clip as any).yt} title={p.clip.title} />}
+              {(p.photos ?? []).map((f) => (
+                <Photo src={photo(f)} ratio="1/1" alt={`${p.name} photo`} widths={[300, 600]} sizes="(max-width:760px) 50vw, 170px" />
+              ))}
+              {(!p.photos || p.photos.length === 0) && !p.clip && (
+                <div class="tmedia-ph">Photos coming soon</div>
+              )}
+            </div>
+            {p.mission && (
+              <a class="mission-link" href={url('life/')}>Read the mission trip story in Life →</a>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero { padding-top: 40px; padding-bottom: 40px; display: flex; flex-wrap: wrap; gap: 24px 32px; align-items: flex-end; justify-content: space-between; }
+  .hero h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(80px, 13vw, 152px); line-height: .86; letter-spacing: -.035em; }
+  .dot { color: var(--accent); }
+  .hero p { margin: 16px 0 0; font-family: var(--serif); font-size: clamp(20px, 3vw, 28px); color: var(--ink-2); }
+
+  .toggle { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
+  .seg { min-height: 44px; padding: 0 22px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .seg.on { background: var(--ink); color: var(--surface); }
+
+  .layout { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; padding-bottom: 120px; }
+  .view-col { flex: 999 1 640px; min-width: 0; }
+  .trip-col { flex: 1 1 340px; min-width: 0; }
+
+  .map-card { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 24px; }
+  .map-box { position: relative; width: 100%; aspect-ratio: 2 / 1; }
+  .map-box svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .marker { position: absolute; width: 44px; height: 44px; transform: translate(-50%, -50%); border: 0; padding: 0; border-radius: 50%; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .marker .core { width: 13px; height: 13px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px var(--surface); }
+  .marker.mission .core { border-radius: 3px; background: #B4643F; transform: rotate(45deg); }
+  .marker[aria-pressed='true'] { background: rgba(43, 42, 39, .06); }
+  .marker[aria-pressed='true'] .core { width: 18px; height: 18px; box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--accent); }
+  .marker.mission[aria-pressed='true'] .core { box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px #B4643F; }
+  .legend { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 16px; font-size: 14px; color: var(--ink-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .lg { width: 12px; height: 12px; }
+  .lg-trip { border-radius: 50%; background: var(--accent); }
+  .lg-mission { border-radius: 3px; background: #B4643F; transform: rotate(45deg); }
+
+  .list-view { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; overflow: hidden; }
+  .list-view li + li .list-row { border-top: 1px solid var(--line); }
+  .list-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; width: 100%; min-height: 72px; padding: 16px 24px; border: 0; text-align: left; font: inherit; color: var(--ink); cursor: pointer; background: #fff; }
+  .list-row[aria-pressed='true'] { background: #E3E8ED; }
+  .lr-when { font-family: var(--mono); font-size: 14px; color: var(--muted); width: 72px; flex: none; }
+  .lr-name { flex: 1 1 200px; font-size: 24px; font-weight: 900; letter-spacing: -.02em; }
+  .lr-region { flex: none; font-size: 15px; color: var(--muted); width: 120px; }
+  .lr-why { flex: none; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #DCE2E8; color: #3B5670; }
+  .lr-why.mission { background: #E9DFD6; color: #9A4F2E; }
+
+  .trip { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+  .tag { align-self: flex-start; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #DCE2E8; color: #3B5670; }
+  .tag.mission { background: #E9DFD6; color: #9A4F2E; }
+  .trip h2 { margin: 0; font-size: 40px; font-weight: 900; letter-spacing: -.02em; line-height: 1; }
+  .tmeta { margin: 0; font-family: var(--mono); font-size: 14px; color: var(--muted); }
+  .tblurb { margin: 0; color: var(--ink-2); font-size: 17px; line-height: 1.55; }
+  .tmedia { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .tmedia > :global(.fbv), .tmedia > :global(.lyt), .tmedia-ph { grid-column: span 2; }
+  .tmedia :global(.photo-img), .tmedia :global(.photo-ph) { border-radius: 14px; }
+  .tmedia-ph { aspect-ratio: 16/9; border-radius: 14px; border: 1px dashed #BDB8AE; background: #DEDAD2; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .mission-link { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 999px; background: #B4643F; color: var(--surface); text-decoration: none; font-weight: 700; }
+  .mission-link:hover { color: var(--surface); background: #9A4F2E; }
+
+  @media (max-width: 760px) {
+    .trip h2 { font-size: 32px; }
+    .lr-region { width: auto; }
+  }
+</style>
+
+<script>
+  const mapView = document.getElementById('map-view')!;
+  const listView = document.getElementById('list-view')!;
+  const toMap = document.getElementById('to-map')!;
+  const toList = document.getElementById('to-list')!;
+  const markers = Array.from(document.querySelectorAll<HTMLElement>('.marker'));
+  const rows = Array.from(document.querySelectorAll<HTMLElement>('.list-row'));
+  const trips = Array.from(document.querySelectorAll<HTMLElement>('.trip'));
+
+  function setView(view: 'map' | 'list') {
+    const isMap = view === 'map';
+    mapView.hidden = !isMap;
+    listView.hidden = isMap;
+    toMap.classList.toggle('on', isMap);
+    toList.classList.toggle('on', !isMap);
+    toMap.setAttribute('aria-pressed', String(isMap));
+    toList.setAttribute('aria-pressed', String(!isMap));
+  }
+  toMap.addEventListener('click', () => setView('map'));
+  toList.addEventListener('click', () => setView('list'));
+
+  function pick(i: number) {
+    markers.forEach((m) => m.setAttribute('aria-pressed', String(+m.dataset.i! === i)));
+    rows.forEach((r) => r.setAttribute('aria-pressed', String(+r.dataset.i! === i)));
+    trips.forEach((t) => (t.hidden = +t.dataset.i! !== i));
+  }
+  markers.forEach((m) => m.addEventListener('click', () => pick(+m.dataset.i!)));
+  rows.forEach((r) => r.addEventListener('click', () => pick(+r.dataset.i!)));
+
+  pick(0);
+</script>
